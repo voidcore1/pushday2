@@ -1,6 +1,7 @@
 "use client"
 
 import { Instagram, Mail, MapPin, Phone, Clock } from "lucide-react"
+import Image from "next/image"
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -33,11 +34,13 @@ export function Footer() {
           {/* Col 1 - Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <svg width="28" height="28" viewBox="0 0 36 36" fill="none">
-                <polygon points="18,2 6,14 12,14 10,22 16,22 14,34 26,18 20,18 24,10 18,10" fill="#00A855" />
-                <path d="M8 8 L4 2 L10 6 Z" fill="#00A855" />
-                <path d="M28 8 L32 2 L26 6 Z" fill="#00A855" />
-              </svg>
+              <Image
+                src="/images/bullsedge-logo.png"
+                alt="Bulls Edge Logo"
+                width={32}
+                height={32}
+                className="shrink-0"
+              />
               <span className="font-sans text-sm font-bold tracking-widest text-background uppercase">
                 Bullsedge Academy
               </span>

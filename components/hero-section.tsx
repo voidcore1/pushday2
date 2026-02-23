@@ -138,7 +138,7 @@ export function HeroSection() {
                 className="relative z-[1]"
               >
                 <Image
-                  src="/images/logo.jpeg"
+                  src="/images/bullsedge-logo.png"
                   alt="Bulls Edge Logo"
                   width={380}
                   height={380}

@@ -40,7 +40,7 @@ export function Navbar() {
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 md:py-5">
         <a href="/" className="flex items-center gap-2.5">
-          <Image src="/images/logo.jpeg" alt="Bulls Edge Logo" width={52} height={52} className="rounded-sm w-10 h-10 md:w-[52px] md:h-[52px] shrink-0" />
+          <Image src="/images/bullsedge-logo.png" alt="Bulls Edge Logo" width={52} height={52} className="rounded-sm w-10 h-10 md:w-[52px] md:h-[52px] shrink-0" />
           <span className="font-sans text-[1.3rem] md:text-[1.6rem] font-extrabold tracking-widest text-foreground uppercase">
             Bullsedge Academy
           </span>
