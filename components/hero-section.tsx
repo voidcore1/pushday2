@@ -68,14 +68,7 @@ export function HeroSection() {
               </span>
             </motion.div>
 
-            <motion.div variants={fadeUp} className="mt-6 flex items-start gap-4 md:gap-6">
-              <Image
-                src="/images/logo.jpeg"
-                alt="Bulls Edge Logo"
-                width={90}
-                height={90}
-                className="rounded-lg shrink-0 hidden md:block"
-              />
+            <motion.div variants={fadeUp} className="mt-6">
               <h1 className="font-serif text-5xl leading-[1.05] font-bold text-foreground md:text-6xl lg:text-7xl text-balance">
                 Experience Trading
                 <br />

@@ -15,7 +15,7 @@ pnpm-debug.log*
 .env.*
 *.swp
 *.swo
-# v0 runtime files
+# Runtime/loader files
 __v0_runtime_loader.js
 __v0_devtools.tsx
 __v0_jsx-dev-runtime.ts

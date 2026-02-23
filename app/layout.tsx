@@ -20,9 +20,9 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   title: 'Bullsedge Academy | Master the Markets',
   description: 'Empowering the Next Generation of Traders. Hands-on trading education with price action, options trading, risk management, and live mentorship.',
-  generator: 'v0.app',
   icons: {
     icon: [
+      { url: '/favicon.png', type: 'image/png' },
       {
         url: '/icon-light-32x32.png',
         media: '(prefers-color-scheme: light)',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
         type: 'image/svg+xml',
       },
     ],
-    apple: '/apple-icon.png',
+    apple: '/favicon.png',
   },
 }
 
