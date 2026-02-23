@@ -122,21 +122,43 @@ export function HeroSection() {
 
           {/* Right column */}
           <motion.div
-            className="relative flex-1 w-full max-w-md lg:max-w-none"
+            className="relative flex-1 w-full max-w-md lg:max-w-none flex items-center justify-center min-h-[420px]"
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
           >
-            <div className="aspect-[3/4] w-full max-w-sm mx-auto rounded-2xl shadow-2xl overflow-hidden relative">
-              <Image
-                src="/images/trading-chart-hero.jpg"
-                alt="Trading candlestick chart showing bullish trend"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0F0C]/60 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 flex items-end justify-center p-6">
-                <div className="rounded-full bg-background/95 px-4 py-2 flex items-center gap-2 shadow-lg">
+            <div className="relative w-full max-w-sm mx-auto flex items-center justify-center">
+              {/* Radial glow behind logo */}
+              <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                <div
+                  className="h-[220px] w-[220px] md:h-[260px] md:w-[260px] lg:h-[500px] lg:w-[500px] rounded-full"
+                  style={{
+                    background: "radial-gradient(circle at center, rgba(0,168,85,0.12) 0%, transparent 70%)",
+                  }}
+                />
+              </div>
+
+              {/* Logo */}
+              <motion.div
+                animate={{ y: [0, -12, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="relative z-[1]"
+              >
+                <Image
+                  src="/images/logo.jpeg"
+                  alt="Bulls Edge Logo"
+                  width={380}
+                  height={380}
+                  className="w-[220px] md:w-[260px] lg:w-[380px] h-auto"
+                  style={{
+                    filter: "drop-shadow(0 20px 60px rgba(0,168,85,0.2))",
+                  }}
+                />
+              </motion.div>
+
+              {/* 200+ 5-Star Reviews badge */}
+              <div className="absolute -bottom-6 right-0 md:-bottom-4 md:right-4 z-[2]">
+                <div className="rounded-full bg-background/95 px-4 py-2 flex items-center gap-2 shadow-lg border border-border/60">
                   <span className="text-sm font-medium text-foreground">200+</span>
                   <span className="flex gap-0.5">
                     {[...Array(5)].map((_, i) => (
@@ -148,25 +170,25 @@ export function HeroSection() {
                   <span className="text-xs text-muted-foreground">5-Star Reviews</span>
                 </div>
               </div>
-            </div>
 
-            {/* Floating card */}
-            <motion.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -bottom-4 -left-4 md:left-0 rounded-xl bg-background border border-border px-4 py-3 shadow-lg flex items-center gap-3"
-            >
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00A855" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
-                  <polyline points="17 6 23 6 23 12" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-lg font-bold text-foreground">500+</p>
-                <p className="text-xs text-muted-foreground">Students</p>
-              </div>
-            </motion.div>
+              {/* 500+ Students badge */}
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -bottom-10 left-0 md:-bottom-8 md:-left-4 rounded-xl bg-background border border-border px-4 py-3 shadow-lg flex items-center gap-3 z-[2]"
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00A855" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                    <polyline points="17 6 23 6 23 12" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-lg font-bold text-foreground">500+</p>
+                  <p className="text-xs text-muted-foreground">Students</p>
+                </div>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
       </div>
