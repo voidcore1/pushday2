@@ -67,7 +67,7 @@ export function ClassesSection() {
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               whileHover={{ y: -4, boxShadow: "0 12px 40px rgba(0,0,0,0.08)" }}
-              className="min-w-[280px] max-w-[320px] shrink-0 snap-start rounded-xl border border-border bg-background overflow-hidden"
+              className="min-w-[280px] max-w-[320px] shrink-0 snap-start rounded-xl border border-border/80 bg-background/90 backdrop-blur-md overflow-hidden"
             >
               <div className="relative">
                 <div className="aspect-[3/4] w-full rounded-t-xl overflow-hidden relative">
@@ -78,7 +78,7 @@ export function ClassesSection() {
                     className="object-cover"
                   />
                 </div>
-                <span className="absolute top-4 left-4 rounded-full bg-background px-3 py-1 text-xs font-medium text-foreground shadow-sm">
+                <span className="absolute top-4 left-4 rounded-full bg-background/90 backdrop-blur-sm px-3 py-1 text-xs font-medium text-foreground shadow-sm">
                   Class
                 </span>
               </div>

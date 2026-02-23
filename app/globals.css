@@ -86,3 +86,30 @@
 html {
   scroll-behavior: smooth;
 }
+
+@keyframes finance-float-up {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--finance-symbol-opacity, 0.06);
+  }
+  90% {
+    opacity: var(--finance-symbol-opacity, 0.06);
+  }
+  100% {
+    transform: translateY(-40px);
+    opacity: 0;
+  }
+}
+
+.finance-floating-symbol {
+  position: absolute;
+  bottom: -10%;
+  color: #0a0f0c;
+  animation-name: finance-float-up;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}

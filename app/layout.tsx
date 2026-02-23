@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Barlow_Condensed, Manrope } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
+import { ThemeProvider } from '@/components/theme-provider'
+import { FinanceBackground } from '@/components/finance-background'
 
 const barlowCondensed = Barlow_Condensed({
   subsets: ['latin'],
@@ -48,8 +50,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${barlowCondensed.variable} ${manrope.variable}`}>
       <body className="font-sans antialiased">
-        {children}
-        <Analytics />
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+          <FinanceBackground />
+          <div className="relative z-10 min-h-screen">
+            {children}
+            <Analytics />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   )

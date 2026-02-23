@@ -133,7 +133,7 @@ export function OfferingsSection() {
                 visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.06, ease: "easeOut" } },
               }}
               whileHover={{ y: -4, boxShadow: "0 12px 40px rgba(0,0,0,0.08)" }}
-              className="rounded-xl border border-border bg-background p-6 md:p-8 transition-colors hover:border-primary"
+              className="rounded-xl border border-border/80 bg-background/90 backdrop-blur-md p-6 md:p-8 transition-colors hover:border-primary"
             >
               <span className="inline-block rounded-full bg-secondary px-3 py-1 text-xs font-medium text-primary mb-4">
                 {offering.topic}

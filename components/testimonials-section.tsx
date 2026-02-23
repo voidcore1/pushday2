@@ -88,7 +88,7 @@ export function TestimonialsSection() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={fadeUpVariant}
-          className="mb-14 rounded-2xl border border-border bg-background p-8 md:p-12"
+          className="mb-14 rounded-2xl border border-border/80 bg-background/90 backdrop-blur-md p-8 md:p-12"
         >
           <div className="flex flex-col md:flex-row gap-6 items-start">
             <div
@@ -118,7 +118,7 @@ export function TestimonialsSection() {
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
               whileHover={{ y: -4, boxShadow: "0 12px 40px rgba(0,0,0,0.08)" }}
-              className="rounded-xl border border-border bg-background p-6"
+              className="rounded-xl border border-border/80 bg-background/90 backdrop-blur-md p-6"
             >
               <div className="flex items-center gap-3 mb-4">
                 <div

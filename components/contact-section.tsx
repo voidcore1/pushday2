@@ -59,7 +59,7 @@ export function ContactSection() {
                 href="https://wa.me/917087568155"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 rounded-xl border border-border bg-background p-4 transition-colors hover:border-primary"
+                className="flex items-center gap-4 rounded-xl border border-border/80 bg-background/90 backdrop-blur-md p-4 transition-colors hover:border-primary"
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#25D366]">
                   <WhatsAppIcon className="text-background" />
@@ -70,7 +70,7 @@ export function ContactSection() {
                 </div>
               </a>
 
-              <div className="flex items-center gap-4 rounded-xl border border-border bg-background p-4">
+              <div className="flex items-center gap-4 rounded-xl border border-border/80 bg-background/90 backdrop-blur-md p-4">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary">
                   <Instagram size={18} className="text-primary" />
                 </div>
@@ -80,7 +80,7 @@ export function ContactSection() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 rounded-xl border border-border bg-background p-4">
+              <div className="flex items-center gap-4 rounded-xl border border-border/80 bg-background/90 backdrop-blur-md p-4">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary">
                   <Mail size={18} className="text-primary" />
                 </div>
@@ -104,7 +104,7 @@ export function ContactSection() {
             variants={fadeUpVariant}
             className="flex-1"
           >
-            <div className="rounded-2xl border border-border bg-background p-6 md:p-8 shadow-sm">
+            <div className="rounded-2xl border border-border/80 bg-background/90 backdrop-blur-md p-6 md:p-8 shadow-sm">
               <AnimatePresence mode="wait">
                 {!submitted ? (
                   <motion.form
