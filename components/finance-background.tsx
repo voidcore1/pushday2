@@ -8,7 +8,7 @@ type Candle = {
   y: number
   width: number
   height: number
-  color: \"green\" | \"red\"
+  color: 'green' | 'red'
   alpha: number
   floatSpeed: number
   pulseOffset: number
@@ -22,8 +22,8 @@ type TickerLine = {
   offset: number
 }
 
-const FINANCE_GREEN = \"#66a50c\"
-const BEAR_RED = \"#ef4444\"
+const FINANCE_GREEN = '#66a50c'
+const BEAR_RED = '#ef4444'
 
 export function FinanceBackground() {
   const { resolvedTheme } = useTheme()
@@ -84,7 +84,7 @@ function FinanceCanvas() {
         y: Math.random() * window.innerHeight,
         width: baseWidth,
         height,
-        color: Math.random() > 0.45 ? \"green\" : \"red\",
+        color: Math.random() > 0.45 ? 'green' : 'red',
         alpha: 0.06 + Math.random() * 0.04,
         floatSpeed: 0.12 + Math.random() * 0.18 + index * 0.002,
         pulseOffset: Math.random() * Math.PI * 2,
