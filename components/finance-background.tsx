@@ -1,7 +1,7 @@
-\"use client\"
+'use client'
 
-import React, { useEffect, useMemo, useRef, useState } from \"react\"
-import { useTheme } from \"next-themes\"
+import React, { useEffect, useMemo, useRef, useState } from "react"
+import { useTheme } from "next-themes"
 
 type Candle = {
   x: number
@@ -33,14 +33,14 @@ export function FinanceBackground() {
     setMounted(true)
   }, [])
 
-  if (!mounted || resolvedTheme !== \"light\") {
+  if (!mounted || resolvedTheme !== "light") {
     return null
   }
 
   return (
     <div
-      aria-hidden=\"true\"
-      className=\"pointer-events-none fixed inset-0 z-0 overflow-hidden bg-transparent\"
+      aria-hidden="true"
+      className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-transparent"
     >
       <FinanceCanvas />
       <FloatingSymbols />
@@ -55,7 +55,7 @@ function FinanceCanvas() {
     const canvas = canvasRef.current
     if (!canvas) return
 
-    const ctx = canvas.getContext(\"2d\")
+    const ctx = canvas.getContext("2d")
     if (!ctx) return
 
     const dpr = window.devicePixelRatio || 1
@@ -70,7 +70,7 @@ function FinanceCanvas() {
     }
 
     resize()
-    window.addEventListener(\"resize\", resize)
+    window.addEventListener("resize", resize)
 
     const isMobile = window.innerWidth < 768
     const candleCount = isMobile ? 18 : 34
@@ -123,11 +123,11 @@ function FinanceCanvas() {
 
     return () => {
       window.cancelAnimationFrame(animationFrameId)
-      window.removeEventListener(\"resize\", resize)
+      window.removeEventListener("resize", resize)
     }
   }, [])
 
-  return <canvas ref={canvasRef} className=\"h-full w-full\" />
+  return <canvas ref={canvasRef} className="h-full w-full" />
 }
 
 function drawGrid(
@@ -137,7 +137,7 @@ function drawGrid(
 ) {
   const spacing = 40
   ctx.save()
-  ctx.strokeStyle = \"rgba(102,165,12,0.04)\"
+  ctx.strokeStyle = "rgba(102,165,12,0.04)"
   ctx.lineWidth = 1
 
   for (let x = 0; x < width; x += spacing) {
@@ -178,7 +178,7 @@ function drawCandles(
       0.75 + 0.25 * Math.sin(t * 1.2 + candle.pulseOffset)
     const alpha = candle.alpha * pulse
 
-    const color = candle.color === \"green\" ? FINANCE_GREEN : BEAR_RED
+    const color = candle.color === "green" ? FINANCE_GREEN : BEAR_RED
 
     ctx.save()
     ctx.globalAlpha = alpha
@@ -243,7 +243,7 @@ function drawTickers(
   })
 }
 
-const FLOATING_SYMBOLS = [\"📈\", \"$\", \"%\", \"+\", \"−\", \"▲\", \"▼\", \"●\"] as const
+const FLOATING_SYMBOLS = ["📈", "$", "%", "+", "−", "▲", "▼", "●"] as const
 
 type FloatingSymbolConfig = {
   id: number
@@ -261,8 +261,8 @@ function FloatingSymbols() {
   useEffect(() => {
     const update = () => setIsMobile(window.innerWidth < 768)
     update()
-    window.addEventListener(\"resize\", update)
-    return () => window.removeEventListener(\"resize\", update)
+    window.addEventListener("resize", update)
+    return () => window.removeEventListener("resize", update)
   }, [])
 
   const symbols = useMemo<FloatingSymbolConfig[]>(() => {
@@ -284,11 +284,11 @@ function FloatingSymbols() {
   }, [isMobile])
 
   return (
-    <div className=\"absolute inset-0\">
+    <div className="absolute inset-0">
       {symbols.map((item) => (
         <span
           key={item.id}
-          className=\"finance-floating-symbol select-none\"
+          className="finance-floating-symbol select-none"
           style={
             {
               left: `${item.left}%`,
