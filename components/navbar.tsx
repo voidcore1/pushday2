@@ -3,15 +3,16 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
+import Link from "next/link"
+import { useRouter, usePathname } from "next/navigation"
+import Image from "next/image"
 
 const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Learn", href: "#offerings" },
-  { label: "Community", href: "#testimonials" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", href: "/about" },
+  { label: "Learn", href: "/#offerings" },
+  { label: "Community", href: "/#testimonials" },
+  { label: "Contact", href: "/#contact" },
 ]
-
-import Image from "next/image"
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -48,19 +49,19 @@ export function Navbar() {
 
         <div className="hidden items-center gap-8 lg:flex">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
               className="relative text-[0.9rem] font-sans text-body transition-colors hover:text-primary after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-primary after:transition-all hover:after:w-full"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
           <a
-            href="https://wa.me/917087568155"
+            href="https://wa.me/916355258155"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full border border-primary px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
@@ -68,12 +69,12 @@ export function Navbar() {
             <WhatsAppIcon />
             Chat on WhatsApp
           </a>
-          <a
-            href="#contact"
+          <Link
+            href="/#contact"
             className="inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-dark-green"
           >
             Inquire Now
-          </a>
+          </Link>
         </div>
 
         <button
@@ -96,18 +97,18 @@ export function Navbar() {
           >
             <div className="flex flex-col gap-4 px-6 py-6">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.label}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
                   className="text-body font-sans text-base transition-colors hover:text-primary"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
             <div className="flex flex-col gap-3 pt-4 border-t border-border">
                 <a
-                  href="https://wa.me/917087568155"
+                  href="https://wa.me/916355258155"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-primary px-4 py-2.5 text-sm font-medium text-primary"
@@ -115,13 +116,13 @@ export function Navbar() {
                   <WhatsAppIcon />
                   Chat on WhatsApp
                 </a>
-                <a
-                  href="#contact"
+                <Link
+                  href="/#contact"
                   onClick={() => setIsOpen(false)}
                   className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground"
                 >
                   Inquire Now
-                </a>
+                </Link>
               </div>
             </div>
           </motion.div>

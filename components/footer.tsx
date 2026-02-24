@@ -2,6 +2,7 @@
 
 import { Instagram, Mail, MapPin, Phone, Clock } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -12,18 +13,17 @@ function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 const quickLinks = [
-  { label: "About", href: "/#about" },
+  { label: "About Us", href: "/about" },
   { label: "Learn", href: "/#offerings" },
   { label: "Community", href: "/#testimonials" },
   { label: "Contact", href: "/#contact" },
 ]
 
 const programs = [
-  "Price Action",
-  "Options Trading",
   "Technical Analysis",
-  "Trading Psychology",
   "Risk Management",
+  "Trading Psychology",
+  "Trader's Discipline",
 ]
 
 export function Footer() {
@@ -59,7 +59,7 @@ export function Footer() {
                 <Instagram size={16} />
               </a>
               <a
-                href="https://wa.me/917087568155"
+                href="https://wa.me/916355258155"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-9 w-9 items-center justify-center rounded-full border border-background/20 text-background/70 transition-colors hover:border-primary hover:text-primary"
@@ -68,7 +68,7 @@ export function Footer() {
                 <WhatsAppIcon className="text-current" />
               </a>
               <a
-                href="mailto:ajmera.vaibhav1217@gmail.com"
+                href="mailto:bullsedgeacad@gmail.com"
                 className="flex h-9 w-9 items-center justify-center rounded-full border border-background/20 text-background/70 transition-colors hover:border-primary hover:text-primary"
                 aria-label="Email"
               >
@@ -93,15 +93,21 @@ export function Footer() {
 
           {/* Col 3 - Programs */}
           <div>
-            <h4 className="text-sm font-bold text-background mb-4 font-sans">Programs</h4>
+            <h4 className="text-sm font-bold text-background mb-4 font-sans">Core Areas</h4>
             <ul className="flex flex-col gap-2.5">
               {programs.map((p) => (
                 <li key={p}>
-                  <a href="#offerings" className="text-sm text-background/60 transition-colors hover:text-primary">
+                  <a href="/#offerings" className="text-sm text-background/60 transition-colors hover:text-primary">
                     {p}
                   </a>
                 </li>
               ))}
+              <li>
+                <Link href="/terms" className="text-sm text-background/60 transition-colors hover:text-primary">Terms & Conditions</Link>
+              </li>
+              <li>
+                <Link href="/privacy" className="text-sm text-background/60 transition-colors hover:text-primary">Privacy Policy</Link>
+              </li>
             </ul>
           </div>
 
@@ -111,17 +117,20 @@ export function Footer() {
               Contact Info
             </h4>
             <ul className="flex flex-col gap-3 font-sans text-[0.9rem]" style={{ color: "rgba(255,255,255,0.75)" }}>
-              <li className="flex items-center gap-2.5">
-                <MapPin size={18} className="shrink-0" style={{ color: "#00A855" }} />
-                <span>Ahmedabad, Gujarat, India</span>
+              <li className="flex items-start gap-2.5">
+                <MapPin size={18} className="shrink-0 mt-0.5" style={{ color: "#00A855" }} />
+                <span>BullsEdge Academy, A-504, Dev Aurum Commercial Building, Anand Nagar Crossroad, Prahladanagar, Ahmedabad – 380015</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone size={18} className="shrink-0" style={{ color: "#00A855" }} />
-                <a href="tel:+917087568155" className="transition-colors hover:text-primary">+91 7087568155</a>
+                <div className="flex flex-col gap-0.5">
+                  <a href="https://wa.me/916355258155" className="transition-colors hover:text-primary">WA: 6355258155</a>
+                  <a href="tel:+916355268155" className="transition-colors hover:text-primary">Call: 6355268155</a>
+                </div>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail size={18} className="shrink-0" style={{ color: "#00A855" }} />
-                <a href="mailto:ajmera.vaibhav1217@gmail.com" className="transition-colors hover:text-primary">ajmera.vaibhav1217@gmail.com</a>
+                <a href="mailto:bullsedgeacad@gmail.com" className="transition-colors hover:text-primary break-all">bullsedgeacad@gmail.com</a>
               </li>
               <li className="flex items-center gap-2.5">
                 <Clock size={18} className="shrink-0" style={{ color: "#00A855" }} />
@@ -136,7 +145,7 @@ export function Footer() {
       <div className="border-t border-background/10">
         <div className="mx-auto max-w-7xl px-6 py-6">
           <p className="text-center text-xs font-sans" style={{ color: "rgba(255,255,255,0.75)" }}>
-            © 2025 BullsEdge Academy. All rights reserved. | Ahmedabad, Gujarat, India  ·  <a href="/terms" className="transition-colors hover:text-primary">Terms & Conditions</a>  ·  <a href="/privacy" className="transition-colors hover:text-primary">Privacy Policy</a>
+            © 2025 BullsEdge Academy. All rights reserved. | Prahladanagar, Ahmedabad – 380015  ·  <Link href="/terms" className="transition-colors hover:text-primary">Terms & Conditions</Link>  ·  <Link href="/privacy" className="transition-colors hover:text-primary">Privacy Policy</Link>
           </p>
         </div>
       </div>

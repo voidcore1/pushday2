@@ -56,7 +56,7 @@ export function ContactSection() {
 
             <div className="flex flex-col gap-4 mb-8">
               <a
-                href="https://wa.me/917087568155"
+                href="https://wa.me/916355258155"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 rounded-xl border border-border/80 bg-background/90 backdrop-blur-md p-4 transition-colors hover:border-primary"
@@ -66,27 +66,43 @@ export function ContactSection() {
                 </div>
                 <div>
                   <p className="font-sans font-semibold text-foreground text-sm">WhatsApp Us</p>
-                  <p className="text-xs text-muted-foreground">Chat directly with our team</p>
+                  <p className="text-xs text-muted-foreground">6355258155</p>
                 </div>
               </a>
 
-              <div className="flex items-center gap-4 rounded-xl border border-border/80 bg-background/90 backdrop-blur-md p-4">
+              <a
+                href="tel:+916355268155"
+                className="flex items-center gap-4 rounded-xl border border-border/80 bg-background/90 backdrop-blur-md p-4 transition-colors hover:border-primary"
+              >
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary">
-                  <Instagram size={18} className="text-primary" />
+                  <Phone size={18} className="text-primary" />
                 </div>
                 <div>
-                  <p className="font-sans font-semibold text-foreground text-sm">Instagram</p>
-                  <p className="text-xs text-muted-foreground">@bullsedge_academy</p>
+                  <p className="font-sans font-semibold text-foreground text-sm">Call Now</p>
+                  <p className="text-xs text-muted-foreground">6355268155</p>
                 </div>
-              </div>
+              </a>
 
-              <div className="flex items-center gap-4 rounded-xl border border-border/80 bg-background/90 backdrop-blur-md p-4">
+              <a
+                href="mailto:bullsedgeacad@gmail.com"
+                className="flex items-center gap-4 rounded-xl border border-border/80 bg-background/90 backdrop-blur-md p-4 transition-colors hover:border-primary"
+              >
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary">
                   <Mail size={18} className="text-primary" />
                 </div>
                 <div>
                   <p className="font-sans font-semibold text-foreground text-sm">Email</p>
-                  <p className="text-xs text-muted-foreground">ajmera.vaibhav1217@gmail.com</p>
+                  <p className="text-xs text-muted-foreground">bullsedgeacad@gmail.com</p>
+                </div>
+              </a>
+
+              <div className="flex items-start gap-4 rounded-xl border border-border/80 bg-background/90 backdrop-blur-md p-4">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary shrink-0">
+                  <Instagram size={18} className="text-primary" />
+                </div>
+                <div>
+                  <p className="font-sans font-semibold text-foreground text-sm">Address</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">A-504, Dev Aurum Commercial Building, Anand Nagar Crossroad, Prahladanagar, Ahmedabad – 380015</p>
                 </div>
               </div>
             </div>
