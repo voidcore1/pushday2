@@ -27,7 +27,7 @@ const pillsRight = ["Risk Management", "Price Action", "Psychology", "Community"
 
 export function WhyUsSection() {
   return (
-    <section id="about" className="py-20 md:py-28">
+    <section id="about" className="py-20 md:py-28" style={{ background: "rgba(255,255,255,0.55)", backdropFilter: "blur(20px) saturate(160%)", WebkitBackdropFilter: "blur(20px) saturate(160%)", borderTop: "1px solid rgba(255,255,255,0.70)", borderBottom: "1px solid rgba(255,255,255,0.40)" }}>
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
           initial="hidden"
@@ -40,7 +40,7 @@ export function WhyUsSection() {
             Why Bullsedge
           </p>
           <h2 className="font-serif text-4xl font-bold text-foreground md:text-5xl text-balance">
-            Why Thousands Choose Us
+            Why People Choose Us
           </h2>
         </motion.div>
 
@@ -50,7 +50,8 @@ export function WhyUsSection() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={fadeUpVariant}
-          className="mb-8 flex flex-col lg:flex-row gap-8 rounded-2xl border border-border/80 bg-background/90 backdrop-blur-md p-6 md:p-10"
+          className="mb-8 flex flex-col lg:flex-row gap-8 rounded-2xl p-6 md:p-10"
+          style={{ background: "rgba(255,255,255,0.72)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.85)", borderRadius: "16px", boxShadow: "0 2px 16px rgba(0,0,0,0.05)" }}
         >
           <div className="aspect-[3/4] w-full lg:w-80 shrink-0 rounded-xl overflow-hidden relative">
             <Image
@@ -80,7 +81,8 @@ export function WhyUsSection() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={fadeUpVariant}
-          className="mb-8 flex flex-col lg:flex-row-reverse gap-8 rounded-2xl border border-border/80 bg-background/90 backdrop-blur-md p-6 md:p-10"
+          className="mb-8 flex flex-col lg:flex-row-reverse gap-8 p-6 md:p-10"
+          style={{ background: "rgba(255,255,255,0.72)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.85)", borderRadius: "16px", boxShadow: "0 2px 16px rgba(0,0,0,0.05)" }}
         >
           <div className="aspect-[3/4] w-full lg:w-80 shrink-0 rounded-xl overflow-hidden relative">
             <Image
@@ -107,7 +109,8 @@ export function WhyUsSection() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={fadeUpVariant}
-          className="mb-8 rounded-2xl border border-border/80 bg-background/90 backdrop-blur-md p-6 md:p-10"
+          className="mb-8 p-6 md:p-10"
+          style={{ background: "rgba(255,255,255,0.72)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.85)", borderRadius: "16px", boxShadow: "0 2px 16px rgba(0,0,0,0.05)" }}
         >
           <div className="flex flex-col lg:flex-row items-center gap-8">
             <div className="flex flex-wrap justify-center gap-2 lg:w-1/4">
@@ -156,7 +159,8 @@ export function WhyUsSection() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={fadeUpVariant}
-          className="rounded-2xl border border-border/80 bg-background/90 backdrop-blur-md p-6 md:p-10 text-center"
+          className="p-6 md:p-10 text-center"
+          style={{ background: "rgba(255,255,255,0.72)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.85)", borderRadius: "16px", boxShadow: "0 2px 16px rgba(0,0,0,0.05)" }}
         >
           <AnimatedStat target={80} suffix="%" />
           <p className="mt-3 text-xs font-sans font-semibold uppercase tracking-widest text-muted-foreground">

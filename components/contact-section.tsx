@@ -30,9 +30,7 @@ export function ContactSection() {
     <section
       id="contact"
       className="py-20 md:py-28"
-      style={{
-        background: "radial-gradient(circle at 50% 0%, rgba(0,168,85,0.06), transparent 60%)",
-      }}
+      style={{ background: "rgba(255,255,255,0.55)", backdropFilter: "blur(20px) saturate(160%)", WebkitBackdropFilter: "blur(20px) saturate(160%)", borderTop: "1px solid rgba(255,255,255,0.70)", borderBottom: "1px solid rgba(255,255,255,0.40)" }}
     >
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
@@ -56,37 +54,56 @@ export function ContactSection() {
 
             <div className="flex flex-col gap-4 mb-8">
               <a
-                href="https://wa.me/917087568155"
+                href="https://wa.me/916355268155"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 rounded-xl border border-border/80 bg-background/90 backdrop-blur-md p-4 transition-colors hover:border-primary"
+                className="flex items-center gap-4 p-4 transition-colors hover:border-primary"
+                style={{ background: "rgba(255,255,255,0.72)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.85)", borderRadius: "16px", boxShadow: "0 2px 16px rgba(0,0,0,0.05)" }}
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#25D366]">
                   <WhatsAppIcon className="text-background" />
                 </div>
                 <div>
                   <p className="font-sans font-semibold text-foreground text-sm">WhatsApp Us</p>
-                  <p className="text-xs text-muted-foreground">Chat directly with our team</p>
+                  <p className="text-xs text-muted-foreground">6355268155</p>
                 </div>
               </a>
 
-              <div className="flex items-center gap-4 rounded-xl border border-border/80 bg-background/90 backdrop-blur-md p-4">
+              <a
+                href="tel:+916355268155"
+                className="flex items-center gap-4 p-4 transition-colors hover:border-primary"
+                style={{ background: "rgba(255,255,255,0.72)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.85)", borderRadius: "16px", boxShadow: "0 2px 16px rgba(0,0,0,0.05)" }}
+              >
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary">
-                  <Instagram size={18} className="text-primary" />
+                  <Phone size={18} className="text-primary" />
                 </div>
                 <div>
-                  <p className="font-sans font-semibold text-foreground text-sm">Instagram</p>
-                  <p className="text-xs text-muted-foreground">@bullsedge_academy</p>
+                  <p className="font-sans font-semibold text-foreground text-sm">Call Now</p>
+                  <p className="text-xs text-muted-foreground">6355268155</p>
                 </div>
-              </div>
+              </a>
 
-              <div className="flex items-center gap-4 rounded-xl border border-border/80 bg-background/90 backdrop-blur-md p-4">
+              <a
+                href="mailto:bullsedgeacad@gmail.com"
+                className="flex items-center gap-4 p-4 transition-colors hover:border-primary"
+                style={{ background: "rgba(255,255,255,0.72)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.85)", borderRadius: "16px", boxShadow: "0 2px 16px rgba(0,0,0,0.05)" }}
+              >
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary">
                   <Mail size={18} className="text-primary" />
                 </div>
                 <div>
                   <p className="font-sans font-semibold text-foreground text-sm">Email</p>
-                  <p className="text-xs text-muted-foreground">ajmera.vaibhav1217@gmail.com</p>
+                  <p className="text-xs text-muted-foreground">bullsedgeacad@gmail.com</p>
+                </div>
+              </a>
+
+              <div className="flex items-start gap-4 p-4" style={{ background: "rgba(255,255,255,0.72)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.85)", borderRadius: "16px", boxShadow: "0 2px 16px rgba(0,0,0,0.05)" }}>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary shrink-0">
+                  <Instagram size={18} className="text-primary" />
+                </div>
+                <div>
+                  <p className="font-sans font-semibold text-foreground text-sm">Address</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">A-504, Dev Aurum Commercial Building, Anand Nagar Crossroad, Prahladanagar, Ahmedabad – 380015</p>
                 </div>
               </div>
             </div>
@@ -104,7 +121,7 @@ export function ContactSection() {
             variants={fadeUpVariant}
             className="flex-1"
           >
-            <div className="rounded-2xl border border-border/80 bg-background/90 backdrop-blur-md p-6 md:p-8 shadow-sm">
+            <div className="p-6 md:p-8" style={{ background: "rgba(255,255,255,0.72)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.85)", borderRadius: "16px", boxShadow: "0 2px 16px rgba(0,0,0,0.05)" }}>
               <AnimatePresence mode="wait">
                 {!submitted ? (
                   <motion.form
@@ -171,7 +188,7 @@ export function ContactSection() {
                       Send Inquiry <Send size={16} />
                     </button>
                     <a
-                      href="https://wa.me/917087568155"
+                      href="https://wa.me/916355268155"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-center text-sm font-semibold text-primary hover:underline"

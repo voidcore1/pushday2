@@ -5,38 +5,38 @@ import { ArrowRight } from "lucide-react"
 
 const testimonials = [
   {
-    name: "Arjun M.",
+    name: "Laxmi Y.",
     role: "Intermediate Trader",
     quote: "Bullsedge completely changed how I look at charts. The price action modules alone were worth every rupee. I went from losing money to trading with a clear system.",
-    initials: "AM",
+    initials: "LY",
     bgColor: "bg-primary",
   },
   {
-    name: "Priya S.",
+    name: "Mandeep S.",
     role: "Beginner",
     quote: "I had zero knowledge about stocks. Now I trade options with real confidence. The structured approach and mentorship made all the difference.",
-    initials: "PS",
+    initials: "MS",
     bgColor: "bg-dark-green",
   },
   {
-    name: "Rahul K.",
+    name: "Manoj K.",
     role: "Advanced Trader",
     quote: "The psychology sessions hit different. I completely stopped revenge trading after week two. The mindset work is what I was missing all along.",
-    initials: "RK",
+    initials: "MK",
     bgColor: "bg-dark",
   },
   {
-    name: "Sneha D.",
+    name: "Sujal B.",
     role: "Intermediate",
     quote: "The community and WhatsApp support group are incredibly active. The mentors respond fast and genuinely care about your progress.",
-    initials: "SD",
+    initials: "SB",
     bgColor: "bg-primary",
   },
   {
-    name: "Vikram T.",
+    name: "Akshay B.",
     role: "Beginner",
     quote: "Clear, structured, zero fluff. Exactly what I needed to start my trading journey without getting overwhelmed by noise and fake gurus.",
-    initials: "VT",
+    initials: "AB",
     bgColor: "bg-dark-green",
   },
   {
@@ -65,7 +65,7 @@ export function TestimonialsSection() {
   const featured = testimonials[0]
 
   return (
-    <section id="testimonials" className="py-20 md:py-28 bg-muted">
+    <section id="testimonials" className="py-20 md:py-28" style={{ background: "rgba(255,255,255,0.55)", backdropFilter: "blur(20px) saturate(160%)", WebkitBackdropFilter: "blur(20px) saturate(160%)", borderTop: "1px solid rgba(255,255,255,0.70)", borderBottom: "1px solid rgba(255,255,255,0.40)" }}>
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
           initial="hidden"
@@ -88,7 +88,8 @@ export function TestimonialsSection() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={fadeUpVariant}
-          className="mb-14 rounded-2xl border border-border/80 bg-background/90 backdrop-blur-md p-8 md:p-12"
+          className="mb-14 p-8 md:p-12"
+          style={{ background: "rgba(255,255,255,0.72)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.85)", borderRadius: "16px", boxShadow: "0 2px 16px rgba(0,0,0,0.05)" }}
         >
           <div className="flex flex-col md:flex-row gap-6 items-start">
             <div
@@ -118,7 +119,8 @@ export function TestimonialsSection() {
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
               whileHover={{ y: -4, boxShadow: "0 12px 40px rgba(0,0,0,0.08)" }}
-              className="rounded-xl border border-border/80 bg-background/90 backdrop-blur-md p-6"
+              className="p-6"
+              style={{ background: "rgba(255,255,255,0.72)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.85)", borderRadius: "16px", boxShadow: "0 2px 16px rgba(0,0,0,0.05)" }}
             >
               <div className="flex items-center gap-3 mb-4">
                 <div

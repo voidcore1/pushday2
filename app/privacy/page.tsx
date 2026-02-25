@@ -101,9 +101,10 @@ export default function PrivacyPage() {
             </p>
             <p className="text-[#2D4A35] leading-[1.8] font-sans">
               <strong>BullsEdge Academy</strong><br />
-              Ahmedabad, Gujarat, India<br />
-              Phone: <a href="tel:+917087568155" className="text-primary hover:underline">+91 7087568155</a><br />
-              Email: <a href="mailto:ajmera.vaibhav1217@gmail.com" className="text-primary hover:underline">ajmera.vaibhav1217@gmail.com</a><br />
+              A-504, Dev Aurum Commercial Building, Anand Nagar Crossroad, Prahladanagar, Ahmedabad – 380015<br />
+              Phone: <a href="tel:+916355268155" className="text-primary hover:underline">6355268155</a><br />
+              WhatsApp: <a href="https://wa.me/916355268155" className="text-primary hover:underline">6355268155</a><br />
+              Email: <a href="mailto:bullsedgeacad@gmail.com" className="text-primary hover:underline">bullsedgeacad@gmail.com</a><br />
               Working Hours: Monday – Saturday | 10:00 AM – 7:00 PM
             </p>
           </section>

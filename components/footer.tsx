@@ -2,6 +2,7 @@
 
 import { Instagram, Mail, MapPin, Phone, Clock } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -12,23 +13,22 @@ function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 const quickLinks = [
-  { label: "About", href: "/#about" },
+  { label: "About Us", href: "/about" },
   { label: "Learn", href: "/#offerings" },
   { label: "Community", href: "/#testimonials" },
   { label: "Contact", href: "/#contact" },
 ]
 
 const programs = [
-  "Price Action",
-  "Options Trading",
   "Technical Analysis",
-  "Trading Psychology",
   "Risk Management",
+  "Trading Psychology",
+  "Trader's Discipline",
 ]
 
 export function Footer() {
   return (
-    <footer className="bg-dark">
+    <footer className="relative z-10" style={{ background: "rgba(255,255,255,0.55)", backdropFilter: "blur(20px) saturate(160%)", WebkitBackdropFilter: "blur(20px) saturate(160%)", borderTop: "1px solid rgba(255,255,255,0.70)" }}>
       <div className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Col 1 - Brand */}
@@ -41,11 +41,11 @@ export function Footer() {
                 height={32}
                 className="shrink-0"
               />
-              <span className="font-sans text-sm font-bold tracking-widest text-background uppercase">
+              <span className="font-sans text-sm font-bold tracking-widest uppercase" style={{ color: "#0f0f0f" }}>
                 Bullsedge Academy
               </span>
             </div>
-            <p className="text-sm text-background/50 leading-relaxed mb-6">
+            <p className="text-sm leading-relaxed mb-6" style={{ color: "#555555" }}>
               Master the Markets. Empowering the next generation of disciplined, profitable traders through education and mentorship.
             </p>
             <div className="flex items-center gap-3">
@@ -53,23 +53,26 @@ export function Footer() {
                 href="https://instagram.com/bullsedge_academy"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-background/20 text-background/70 transition-colors hover:border-primary hover:text-primary"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-black/15 transition-colors hover:border-primary hover:text-primary"
+                style={{ color: "#555555" }}
                 aria-label="Instagram"
               >
                 <Instagram size={16} />
               </a>
               <a
-                href="https://wa.me/917087568155"
+                href="https://wa.me/916355268155"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-background/20 text-background/70 transition-colors hover:border-primary hover:text-primary"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-black/15 transition-colors hover:border-primary hover:text-primary"
+                style={{ color: "#555555" }}
                 aria-label="WhatsApp"
               >
                 <WhatsAppIcon className="text-current" />
               </a>
               <a
-                href="mailto:ajmera.vaibhav1217@gmail.com"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-background/20 text-background/70 transition-colors hover:border-primary hover:text-primary"
+                href="mailto:bullsedgeacad@gmail.com"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-black/15 transition-colors hover:border-primary hover:text-primary"
+                style={{ color: "#555555" }}
                 aria-label="Email"
               >
                 <Mail size={16} />
@@ -79,11 +82,11 @@ export function Footer() {
 
           {/* Col 2 - Quick Links */}
           <div>
-            <h4 className="text-sm font-bold text-background mb-4 font-sans">Quick Links</h4>
+            <h4 className="text-sm font-bold mb-4 font-sans" style={{ color: "#0f0f0f" }}>Quick Links</h4>
             <ul className="flex flex-col gap-2.5">
               {quickLinks.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-sm text-background/60 transition-colors hover:text-primary">
+                  <a href={link.href} className="text-sm transition-colors hover:text-primary" style={{ color: "#555555" }}>
                     {link.label}
                   </a>
                 </li>
@@ -93,15 +96,21 @@ export function Footer() {
 
           {/* Col 3 - Programs */}
           <div>
-            <h4 className="text-sm font-bold text-background mb-4 font-sans">Programs</h4>
+            <h4 className="text-sm font-bold mb-4 font-sans" style={{ color: "#0f0f0f" }}>Core Areas</h4>
             <ul className="flex flex-col gap-2.5">
               {programs.map((p) => (
                 <li key={p}>
-                  <a href="#offerings" className="text-sm text-background/60 transition-colors hover:text-primary">
+                  <a href="/#offerings" className="text-sm transition-colors hover:text-primary" style={{ color: "#555555" }}>
                     {p}
                   </a>
                 </li>
               ))}
+              <li>
+                <Link href="/terms" className="text-sm transition-colors hover:text-primary" style={{ color: "#555555" }}>Terms & Conditions</Link>
+              </li>
+              <li>
+                <Link href="/privacy" className="text-sm transition-colors hover:text-primary" style={{ color: "#555555" }}>Privacy Policy</Link>
+              </li>
             </ul>
           </div>
 
@@ -110,18 +119,21 @@ export function Footer() {
             <h4 className="text-xs font-semibold uppercase tracking-widest mb-4 font-sans" style={{ color: "#00A855", letterSpacing: "0.15em" }}>
               Contact Info
             </h4>
-            <ul className="flex flex-col gap-3 font-sans text-[0.9rem]" style={{ color: "rgba(255,255,255,0.75)" }}>
-              <li className="flex items-center gap-2.5">
-                <MapPin size={18} className="shrink-0" style={{ color: "#00A855" }} />
-                <span>Ahmedabad, Gujarat, India</span>
+            <ul className="flex flex-col gap-3 font-sans text-[0.9rem]" style={{ color: "#555555" }}>
+              <li className="flex items-start gap-2.5">
+                <MapPin size={18} className="shrink-0 mt-0.5" style={{ color: "#00A855" }} />
+                <span>BullsEdge Academy, A-504, Dev Aurum Commercial Building, Anand Nagar Crossroad, Prahladanagar, Ahmedabad – 380015</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone size={18} className="shrink-0" style={{ color: "#00A855" }} />
-                <a href="tel:+917087568155" className="transition-colors hover:text-primary">+91 7087568155</a>
+                <div className="flex flex-col gap-0.5">
+                  <a href="https://wa.me/916355268155" className="transition-colors hover:text-primary">WA: 6355268155</a>
+                  <a href="tel:+916355268155" className="transition-colors hover:text-primary">Call: 6355268155</a>
+                </div>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail size={18} className="shrink-0" style={{ color: "#00A855" }} />
-                <a href="mailto:ajmera.vaibhav1217@gmail.com" className="transition-colors hover:text-primary">ajmera.vaibhav1217@gmail.com</a>
+                <a href="mailto:bullsedgeacad@gmail.com" className="transition-colors hover:text-primary break-all">bullsedgeacad@gmail.com</a>
               </li>
               <li className="flex items-center gap-2.5">
                 <Clock size={18} className="shrink-0" style={{ color: "#00A855" }} />
@@ -133,10 +145,10 @@ export function Footer() {
       </div>
 
       {/* Divider */}
-      <div className="border-t border-background/10">
+      <div className="border-t border-black/8">
         <div className="mx-auto max-w-7xl px-6 py-6">
-          <p className="text-center text-xs font-sans" style={{ color: "rgba(255,255,255,0.75)" }}>
-            © 2025 BullsEdge Academy. All rights reserved. | Ahmedabad, Gujarat, India  ·  <a href="/terms" className="transition-colors hover:text-primary">Terms & Conditions</a>  ·  <a href="/privacy" className="transition-colors hover:text-primary">Privacy Policy</a>
+          <p className="text-center text-xs font-sans" style={{ color: "#888888" }}>
+            © 2025 BullsEdge Academy. All rights reserved. | Prahladanagar, Ahmedabad – 380015  ·  <Link href="/terms" className="transition-colors hover:text-primary">Terms & Conditions</Link>  ·  <Link href="/privacy" className="transition-colors hover:text-primary">Privacy Policy</Link>
           </p>
         </div>
       </div>
