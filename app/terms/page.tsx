@@ -85,7 +85,7 @@ export default function TermsPage() {
               <strong>BullsEdge Academy</strong><br />
               A-504, Dev Aurum Commercial Building, Anand Nagar Crossroad, Prahladanagar, Ahmedabad – 380015<br />
               Phone: <a href="tel:+916355268155" className="text-primary hover:underline">6355268155</a><br />
-              WhatsApp: <a href="https://wa.me/916355258155" className="text-primary hover:underline">6355258155</a><br />
+              WhatsApp: <a href="https://wa.me/916355268155" className="text-primary hover:underline">6355268155</a><br />
               Email: <a href="mailto:bullsedgeacad@gmail.com" className="text-primary hover:underline">bullsedgeacad@gmail.com</a><br />
               Working Hours: Monday – Saturday | 10:00 AM – 7:00 PM
             </p>

@@ -54,7 +54,7 @@ export function ContactSection() {
 
             <div className="flex flex-col gap-4 mb-8">
               <a
-                href="https://wa.me/916355258155"
+                href="https://wa.me/916355268155"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 p-4 transition-colors hover:border-primary"
@@ -65,7 +65,7 @@ export function ContactSection() {
                 </div>
                 <div>
                   <p className="font-sans font-semibold text-foreground text-sm">WhatsApp Us</p>
-                  <p className="text-xs text-muted-foreground">6355258155</p>
+                  <p className="text-xs text-muted-foreground">6355268155</p>
                 </div>
               </a>
 
@@ -188,7 +188,7 @@ export function ContactSection() {
                       Send Inquiry <Send size={16} />
                     </button>
                     <a
-                      href="https://wa.me/916355258155"
+                      href="https://wa.me/916355268155"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-center text-sm font-semibold text-primary hover:underline"

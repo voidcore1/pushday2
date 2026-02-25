@@ -60,7 +60,7 @@ export function HeroSection() {
           >
             <motion.div variants={fadeUp}>
               <span className="inline-flex items-center gap-2 rounded-full border border-[#b8832a] px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-[#b8832a]">
-                <span>&#9889;</span> #1 Trading Academy
+                <span>&#9889;</span> #1 Reality-Based Trading Academy
               </span>
             </motion.div>
 
@@ -83,7 +83,7 @@ export function HeroSection() {
 
             <motion.div variants={fadeUp} className="mt-8 flex flex-wrap items-center gap-4">
               <a
-                href="https://wa.me/916355258155"
+                href="https://wa.me/916355268155"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-base font-semibold text-white transition-colors hover:bg-dark-green"
@@ -145,18 +145,10 @@ export function HeroSection() {
                 />
               </motion.div>
 
-              {/* 200+ 5-Star Reviews badge */}
+              {/* Master the Markets tagline */}
               <div className="absolute -bottom-6 right-0 md:-bottom-4 md:right-4 z-[2]">
-                <div className="rounded-full px-4 py-2 flex items-center gap-2 shadow-lg border border-black/8" style={{ background: "rgba(255,255,255,0.88)", backdropFilter: "blur(12px)" }}>
-                  <span className="text-sm font-medium" style={{ color: "#0f0f0f" }}>200+</span>
-                  <span className="flex gap-0.5">
-                    {[...Array(5)].map((_, i) => (
-                      <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="#F59E0B">
-                        <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
-                      </svg>
-                    ))}
-                  </span>
-                  <span className="text-xs" style={{ color: "#555555" }}>5-Star Reviews</span>
+                <div className="rounded-full px-4 py-2 shadow-lg border border-black/8" style={{ background: "rgba(255,255,255,0.88)", backdropFilter: "blur(12px)" }}>
+                  <span className="text-xs italic" style={{ color: "#555555" }}>Master the Markets</span>
                 </div>
               </div>
 

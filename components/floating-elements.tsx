@@ -34,7 +34,7 @@ export function FloatingElements() {
       {/* WhatsApp button */}
       <div className="fixed bottom-6 right-6 z-[9999]">
         <a
-          href="https://wa.me/916355258155"
+          href="https://wa.me/916355268155"
           target="_blank"
           rel="noopener noreferrer"
           className="group relative flex h-[60px] w-[60px] items-center justify-center rounded-full bg-[#25D366] shadow-lg transition-transform hover:scale-105"

@@ -40,7 +40,7 @@ export function WhyUsSection() {
             Why Bullsedge
           </p>
           <h2 className="font-serif text-4xl font-bold text-foreground md:text-5xl text-balance">
-            Why Thousands Choose Us
+            Why People Choose Us
           </h2>
         </motion.div>
 

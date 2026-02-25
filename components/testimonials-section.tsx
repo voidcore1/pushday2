@@ -5,38 +5,38 @@ import { ArrowRight } from "lucide-react"
 
 const testimonials = [
   {
-    name: "Arjun M.",
+    name: "Laxmi Y.",
     role: "Intermediate Trader",
     quote: "Bullsedge completely changed how I look at charts. The price action modules alone were worth every rupee. I went from losing money to trading with a clear system.",
-    initials: "AM",
+    initials: "LY",
     bgColor: "bg-primary",
   },
   {
-    name: "Priya S.",
+    name: "Mandeep S.",
     role: "Beginner",
     quote: "I had zero knowledge about stocks. Now I trade options with real confidence. The structured approach and mentorship made all the difference.",
-    initials: "PS",
+    initials: "MS",
     bgColor: "bg-dark-green",
   },
   {
-    name: "Rahul K.",
+    name: "Manoj K.",
     role: "Advanced Trader",
     quote: "The psychology sessions hit different. I completely stopped revenge trading after week two. The mindset work is what I was missing all along.",
-    initials: "RK",
+    initials: "MK",
     bgColor: "bg-dark",
   },
   {
-    name: "Sneha D.",
+    name: "Sujal B.",
     role: "Intermediate",
     quote: "The community and WhatsApp support group are incredibly active. The mentors respond fast and genuinely care about your progress.",
-    initials: "SD",
+    initials: "SB",
     bgColor: "bg-primary",
   },
   {
-    name: "Vikram T.",
+    name: "Akshay B.",
     role: "Beginner",
     quote: "Clear, structured, zero fluff. Exactly what I needed to start my trading journey without getting overwhelmed by noise and fake gurus.",
-    initials: "VT",
+    initials: "AB",
     bgColor: "bg-dark-green",
   },
   {
