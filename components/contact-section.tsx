@@ -30,9 +30,7 @@ export function ContactSection() {
     <section
       id="contact"
       className="py-20 md:py-28"
-      style={{
-        background: "radial-gradient(circle at 50% 0%, rgba(0,168,85,0.06), transparent 60%)",
-      }}
+      style={{ background: "rgba(255,255,255,0.78)", backdropFilter: "blur(12px)" }}
     >
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
@@ -187,7 +185,7 @@ export function ContactSection() {
                       Send Inquiry <Send size={16} />
                     </button>
                     <a
-                      href="https://wa.me/917087568155"
+                      href="https://wa.me/916355258155"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-center text-sm font-semibold text-primary hover:underline"

@@ -65,7 +65,7 @@ export function TestimonialsSection() {
   const featured = testimonials[0]
 
   return (
-    <section id="testimonials" className="py-20 md:py-28 bg-muted">
+    <section id="testimonials" className="py-20 md:py-28" style={{ background: "rgba(255,255,255,0.78)", backdropFilter: "blur(12px)" }}>
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
           initial="hidden"

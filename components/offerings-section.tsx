@@ -102,7 +102,7 @@ function CardGrid({
 
 export function OfferingsSection() {
   return (
-    <section id="offerings" className="py-20 md:py-28 bg-muted">
+    <section id="offerings" className="py-20 md:py-28" style={{ background: "rgba(255,255,255,0.78)", backdropFilter: "blur(12px)" }}>
       <div className="mx-auto max-w-7xl px-6 flex flex-col gap-20">
 
         {/* Core Areas */}

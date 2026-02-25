@@ -1,308 +1,294 @@
-'use client'
+"use client"
 
-import React, { useEffect, useMemo, useRef, useState } from "react"
-import { useTheme } from "next-themes"
+import { useEffect, useRef } from "react"
 
-type Candle = {
-  x: number
-  y: number
-  width: number
-  height: number
-  color: 'green' | 'red'
-  alpha: number
-  floatSpeed: number
-  pulseOffset: number
+// ─── Ticker data ─────────────────────────────────────────────────────────────
+const TICKER_ITEMS = [
+  { symbol: "NIFTY",     price: "22,847",  change: "+1.24%", up: true  },
+  { symbol: "SENSEX",    price: "73,912",  change: "+0.98%", up: true  },
+  { symbol: "BANKNIFTY", price: "48,340",  change: "−0.43%", up: false },
+  { symbol: "RELIANCE",  price: "₹2,940",  change: "+2.11%", up: true  },
+  { symbol: "TCS",       price: "₹3,820",  change: "−0.67%", up: false },
+  { symbol: "HDFC",      price: "₹1,680",  change: "+1.55%", up: true  },
+  { symbol: "INFY",      price: "₹1,450",  change: "+0.88%", up: true  },
+  { symbol: "BTC/USD",   price: "$67,400", change: "+4.12%", up: true  },
+  { symbol: "ETH/USD",   price: "$3,540",  change: "+2.87%", up: true  },
+  { symbol: "GOLD",      price: "₹71,200", change: "+0.54%", up: true  },
+  { symbol: "CRUDE OIL", price: "₹6,820",  change: "−1.23%", up: false },
+  { symbol: "USD/INR",   price: "83.42",   change: "−0.12%", up: false },
+]
+
+// ─── Strip configs ────────────────────────────────────────────────────────────
+const STRIPS = [
+  { yFrac: 0.04, heightFrac: 0.30, lineColor: "#b8832a", lineOpacity: 0.55, scrollSpeed: 0.55, startPrice: 22400 },
+  { yFrac: 0.37, heightFrac: 0.28, lineColor: "#2d6a4f", lineOpacity: 0.40, scrollSpeed: 0.40, startPrice: 48200 },
+  { yFrac: 0.68, heightFrac: 0.28, lineColor: "#1d4ed8", lineOpacity: 0.35, scrollSpeed: 0.65, startPrice: 67400 },
+]
+
+const CANDLE_W  = 9
+const CANDLE_GAP = 4
+const STEP      = CANDLE_W + CANDLE_GAP  // 13
+
+type OHLC = { open: number; close: number; high: number; low: number }
+
+function genCandles(n: number, startPrice: number): OHLC[] {
+  const arr: OHLC[] = []
+  let price = startPrice
+  for (let i = 0; i < n; i++) {
+    const open  = price
+    const move  = (Math.random() - 0.48) * price * 0.022
+    const close = open + move
+    const high  = Math.max(open, close) + Math.random() * price * 0.008
+    const low   = Math.min(open, close) - Math.random() * price * 0.008
+    arr.push({ open, close, high, low })
+    price = close
+  }
+  return arr
 }
 
-type TickerLine = {
-  amplitude: number
-  frequency: number
-  speed: number
-  thickness: number
+type StripState = {
+  candles: OHLC[]
   offset: number
+  cfg: typeof STRIPS[0]
 }
 
-const FINANCE_GREEN = '#66a50c'
-const BEAR_RED = '#ef4444'
+function mapY(price: number, minP: number, maxP: number, yTop: number, zoneH: number): number {
+  const pad = zoneH * 0.12
+  const range = maxP - minP || 1
+  return yTop + pad + ((maxP - price) / range) * (zoneH - pad * 2)
+}
 
 export function FinanceBackground() {
-  const { resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  if (!mounted || resolvedTheme !== "light") {
-    return null
-  }
-
-  return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-transparent"
-    >
-      <FinanceCanvas />
-      <FloatingSymbols />
-    </div>
-  )
-}
-
-function FinanceCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
-
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
     const dpr = window.devicePixelRatio || 1
 
     const resize = () => {
-      const { innerWidth, innerHeight } = window
-      canvas.width = innerWidth * dpr
-      canvas.height = innerHeight * dpr
-      canvas.style.width = `${innerWidth}px`
-      canvas.style.height = `${innerHeight}px`
+      const w = window.innerWidth
+      const h = window.innerHeight
+      canvas.width  = w * dpr
+      canvas.height = h * dpr
+      canvas.style.width  = `${w}px`
+      canvas.style.height = `${h}px`
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
     }
-
     resize()
     window.addEventListener("resize", resize)
 
-    const isMobile = window.innerWidth < 768
-    const candleCount = isMobile ? 18 : 34
-    const tickerCount = 3
+    const W = () => window.innerWidth
+    const H = () => window.innerHeight
 
-    const candles: Candle[] = Array.from({ length: candleCount }).map((_, index) => {
-      const baseWidth = isMobile ? 6 : 8
-      const height = (Math.random() * 90 + 40) * (isMobile ? 0.75 : 1)
-      return {
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        width: baseWidth,
-        height,
-        color: Math.random() > 0.45 ? 'green' : 'red',
-        alpha: 0.06 + Math.random() * 0.04,
-        floatSpeed: 0.12 + Math.random() * 0.18 + index * 0.002,
-        pulseOffset: Math.random() * Math.PI * 2,
-      }
+    // Initialise strips — fill enough candles to cover full width + buffer
+    const strips: StripState[] = STRIPS.map((cfg) => {
+      const count = Math.ceil(W() / STEP) + 20
+      return { candles: genCandles(count, cfg.startPrice), offset: 0, cfg }
     })
 
-    const tickerLines: TickerLine[] = Array.from({ length: tickerCount }).map(
-      (_, i) => ({
-        amplitude: (isMobile ? 14 : 22) + i * 4,
-        frequency: 0.004 + i * 0.0008,
-        speed: 0.15 + i * 0.05,
-        thickness: 1.1,
-        offset: Math.random() * 1000,
-      }),
-    )
+    let raf: number
 
-    let animationFrameId: number
-    let lastTime = performance.now()
+    const render = () => {
+      const w = W()
+      const h = H()
+      ctx.clearRect(0, 0, w, h)
 
-    const render = (time: number) => {
-      const dt = (time - lastTime) / 16.67
-      lastTime = time
+      // ── STEP 1: vertical grid lines ──────────────────────────────────────
+      ctx.save()
+      ctx.strokeStyle = "rgba(85,85,85,0.04)"
+      ctx.lineWidth = 1
+      const cols = 14
+      for (let i = 0; i <= cols; i++) {
+        const x = (w / cols) * i
+        ctx.beginPath()
+        ctx.moveTo(x, 0)
+        ctx.lineTo(x, h)
+        ctx.stroke()
+      }
+      ctx.restore()
 
-      const { innerWidth, innerHeight } = window
+      // ── STEP 2: three chart strips ────────────────────────────────────────
+      for (const s of strips) {
+        const { cfg } = s
+        const yTop   = h * cfg.yFrac
+        const zoneH  = h * cfg.heightFrac
 
-      ctx.clearRect(0, 0, innerWidth, innerHeight)
+        // Advance scroll
+        s.offset += cfg.scrollSpeed
+        while (s.offset >= STEP) {
+          s.offset -= STEP
+          s.candles.shift()
+          s.candles.push(genCandles(1, s.candles[s.candles.length - 1]?.close ?? cfg.startPrice)[0])
+        }
 
-      drawGrid(ctx, innerWidth, innerHeight)
-      drawTickers(ctx, innerWidth, innerHeight, tickerLines, time)
-      drawCandles(ctx, innerWidth, innerHeight, candles, dt, time)
+        // ── A: horizontal grid lines inside strip ─────────────────────────
+        ctx.save()
+        ctx.strokeStyle = "#b8832a"
+        ctx.globalAlpha = 0.07
+        ctx.lineWidth = 0.5
+        for (let d = 1; d <= 3; d++) {
+          const gy = yTop + (zoneH / 4) * d
+          ctx.beginPath()
+          ctx.moveTo(0, gy)
+          ctx.lineTo(w, gy)
+          ctx.stroke()
+        }
+        ctx.restore()
 
-      animationFrameId = window.requestAnimationFrame(render)
+        // Price range for mapping
+        const allHighs = s.candles.map((c) => c.high)
+        const allLows  = s.candles.map((c) => c.low)
+        const minP = Math.min(...allLows)
+        const maxP = Math.max(...allHighs)
+
+        const totalW  = s.candles.length * STEP
+        const startX  = w - totalW + s.offset
+
+        // ── B: candlesticks ────────────────────────────────────────────────
+        s.candles.forEach((c, i) => {
+          const cx = startX + i * STEP
+          if (cx + CANDLE_W < 0 || cx > w) return
+
+          const bull = c.close >= c.open
+          const bodyColor = bull ? "#b8832a" : "#8a8a8a"
+          const bodyTop    = mapY(Math.max(c.open, c.close), minP, maxP, yTop, zoneH)
+          const bodyBottom = mapY(Math.min(c.open, c.close), minP, maxP, yTop, zoneH)
+          const bodyH      = Math.max(bodyBottom - bodyTop, 1)
+          const centerX    = cx + CANDLE_W / 2
+
+          // Wick
+          ctx.save()
+          ctx.strokeStyle = bodyColor
+          ctx.lineWidth = 1
+          ctx.globalAlpha = 0.22
+          ctx.beginPath()
+          ctx.moveTo(centerX, mapY(c.high, minP, maxP, yTop, zoneH))
+          ctx.lineTo(centerX, mapY(c.low,  minP, maxP, yTop, zoneH))
+          ctx.stroke()
+          ctx.restore()
+
+          // Body fill
+          ctx.save()
+          ctx.fillStyle = bodyColor
+          ctx.globalAlpha = bull ? 0.28 : 0.18
+          ctx.fillRect(cx, bodyTop, CANDLE_W, bodyH)
+          ctx.restore()
+
+          // Body outline
+          ctx.save()
+          ctx.strokeStyle = bodyColor
+          ctx.lineWidth = 0.8
+          ctx.globalAlpha = 0.35
+          ctx.strokeRect(cx, bodyTop, CANDLE_W, bodyH)
+          ctx.restore()
+        })
+
+        // ── C: solid overlay line (close prices) ──────────────────────────
+        ctx.save()
+        ctx.strokeStyle = cfg.lineColor
+        ctx.lineWidth = 1.8
+        ctx.globalAlpha = cfg.lineOpacity
+        ctx.lineJoin = "round"
+        ctx.shadowBlur = 0
+        ctx.beginPath()
+        let started = false
+        s.candles.forEach((c, i) => {
+          const cx = startX + i * STEP + CANDLE_W / 2
+          if (cx < -STEP || cx > w + STEP) return
+          const cy = mapY(c.close, minP, maxP, yTop, zoneH)
+          if (!started) { ctx.moveTo(cx, cy); started = true }
+          else ctx.lineTo(cx, cy)
+        })
+        ctx.stroke()
+        ctx.restore()
+
+        // ── D: dashed overlay line (open prices) ──────────────────────────
+        ctx.save()
+        ctx.strokeStyle = cfg.lineColor
+        ctx.lineWidth = 1.2
+        ctx.globalAlpha = cfg.lineOpacity * 0.55
+        ctx.lineJoin = "round"
+        ctx.setLineDash([6, 5])
+        ctx.shadowBlur = 0
+        ctx.beginPath()
+        let started2 = false
+        s.candles.forEach((c, i) => {
+          const cx = startX + i * STEP + CANDLE_W / 2
+          if (cx < -STEP || cx > w + STEP) return
+          const cy = mapY(c.open, minP, maxP, yTop, zoneH)
+          if (!started2) { ctx.moveTo(cx, cy); started2 = true }
+          else ctx.lineTo(cx, cy)
+        })
+        ctx.stroke()
+        ctx.setLineDash([])
+        ctx.restore()
+      }
+
+      raf = requestAnimationFrame(render)
     }
 
-    animationFrameId = window.requestAnimationFrame(render)
+    raf = requestAnimationFrame(render)
 
     return () => {
-      window.cancelAnimationFrame(animationFrameId)
+      cancelAnimationFrame(raf)
       window.removeEventListener("resize", resize)
     }
   }, [])
 
-  return <canvas ref={canvasRef} className="h-full w-full" />
-}
-
-function drawGrid(
-  ctx: CanvasRenderingContext2D,
-  width: number,
-  height: number,
-) {
-  const spacing = 40
-  ctx.save()
-  ctx.strokeStyle = "rgba(102,165,12,0.04)"
-  ctx.lineWidth = 1
-
-  for (let x = 0; x < width; x += spacing) {
-    ctx.beginPath()
-    ctx.moveTo(x + 0.5, 0)
-    ctx.lineTo(x + 0.5, height)
-    ctx.stroke()
-  }
-
-  for (let y = 0; y < height; y += spacing) {
-    ctx.beginPath()
-    ctx.moveTo(0, y + 0.5)
-    ctx.lineTo(width, y + 0.5)
-    ctx.stroke()
-  }
-
-  ctx.restore()
-}
-
-function drawCandles(
-  ctx: CanvasRenderingContext2D,
-  width: number,
-  height: number,
-  candles: Candle[],
-  dt: number,
-  time: number,
-) {
-  const t = time / 1000
-
-  candles.forEach((candle) => {
-    candle.y -= candle.floatSpeed * dt * 10
-    if (candle.y + candle.height < 0) {
-      candle.y = height + Math.random() * 80
-      candle.x = Math.random() * width
-    }
-
-    const pulse =
-      0.75 + 0.25 * Math.sin(t * 1.2 + candle.pulseOffset)
-    const alpha = candle.alpha * pulse
-
-    const color = candle.color === "green" ? FINANCE_GREEN : BEAR_RED
-
-    ctx.save()
-    ctx.globalAlpha = alpha
-
-    ctx.beginPath()
-    ctx.strokeStyle = color
-    ctx.lineWidth = 1
-    const centerX = candle.x + candle.width / 2
-    ctx.moveTo(centerX, candle.y - candle.height * 0.15)
-    ctx.lineTo(centerX, candle.y + candle.height * 0.85)
-    ctx.stroke()
-
-    ctx.fillStyle = color
-    ctx.fillRect(
-      candle.x,
-      candle.y,
-      candle.width,
-      candle.height,
-    )
-
-    ctx.restore()
-  })
-}
-
-function drawTickers(
-  ctx: CanvasRenderingContext2D,
-  width: number,
-  height: number,
-  tickerLines: TickerLine[],
-  time: number,
-) {
-  const t = time / 1000
-
-  tickerLines.forEach((line, index) => {
-    ctx.save()
-    ctx.strokeStyle = `rgba(102,165,12,0.08)`
-    ctx.lineWidth = line.thickness
-
-    const verticalPosition =
-      height * (0.25 + 0.2 * index) +
-      Math.sin(t * 0.3 + index) * 20
-
-    ctx.beginPath()
-
-    const step = 16
-    for (let x = -40; x <= width + 40; x += step) {
-      const phase = (x + t * 60 * line.speed + line.offset) * line.frequency
-      const y =
-        verticalPosition +
-        Math.sin(phase) * line.amplitude +
-        Math.cos(phase * 0.7) * (line.amplitude * 0.4)
-
-      if (x === -40) {
-        ctx.moveTo(x, y)
-      } else {
-        ctx.lineTo(x, y)
-      }
-    }
-
-    ctx.stroke()
-    ctx.restore()
-  })
-}
-
-const FLOATING_SYMBOLS = ["📈", "$", "%", "+", "−", "▲", "▼", "●"] as const
-
-type FloatingSymbolConfig = {
-  id: number
-  symbol: string
-  left: number
-  duration: number
-  delay: number
-  fontSize: number
-  opacity: number
-}
-
-function FloatingSymbols() {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const update = () => setIsMobile(window.innerWidth < 768)
-    update()
-    window.addEventListener("resize", update)
-    return () => window.removeEventListener("resize", update)
-  }, [])
-
-  const symbols = useMemo<FloatingSymbolConfig[]>(() => {
-    const count = isMobile ? 10 : 18
-    return Array.from({ length: count }).map((_, i) => ({
-      id: i,
-      symbol:
-        FLOATING_SYMBOLS[
-          Math.floor(Math.random() * FLOATING_SYMBOLS.length)
-        ],
-      left: Math.random() * 100,
-      duration: 22 + Math.random() * 16,
-      delay: Math.random() * 14,
-      fontSize: isMobile
-        ? 10 + Math.random() * 4
-        : 11 + Math.random() * 5,
-      opacity: 0.05 + Math.random() * 0.03,
-    }))
-  }, [isMobile])
-
   return (
-    <div className="absolute inset-0">
-      {symbols.map((item) => (
-        <span
-          key={item.id}
-          className="finance-floating-symbol select-none"
-          style={
-            {
-              left: `${item.left}%`,
-              animationDuration: `${item.duration}s`,
-              animationDelay: `${item.delay}s`,
-              fontSize: `${item.fontSize}px`,
-              opacity: item.opacity,
-            } as React.CSSProperties
-          }
-        >
-          {item.symbol}
-        </span>
-      ))}
+    <div
+      aria-hidden="true"
+      className="pointer-events-none fixed inset-0 z-0"
+      style={{ background: "#f8f8f6" }}
+    >
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+      <TickerBar />
     </div>
   )
 }
 
+// ─── Ticker bar ───────────────────────────────────────────────────────────────
+function TickerBar() {
+  const items = [...TICKER_ITEMS, ...TICKER_ITEMS]
+
+  return (
+    <div
+      className="absolute bottom-0 left-0 right-0 flex items-center overflow-hidden"
+      style={{
+        height: "34px",
+        background: "rgba(18,18,18,0.94)",
+        borderTop: "1px solid rgba(184,131,42,0.35)",
+      }}
+    >
+      <div className="ticker-bg-track flex items-center whitespace-nowrap">
+        {items.map((item, i) => (
+          <span
+            key={i}
+            className="inline-flex items-center gap-1.5 px-5"
+            style={{ fontSize: "11.5px", fontWeight: 600, fontFamily: "monospace" }}
+          >
+            <span style={{ color: "rgba(255,255,255,0.55)" }}>{item.symbol}</span>
+            <span style={{ color: "#ffffff" }}>{item.price}</span>
+            <span style={{ color: item.up ? "#22c55e" : "#ef4444" }}>{item.change}</span>
+            <span style={{ color: "rgba(255,255,255,0.12)", margin: "0 4px" }}>|</span>
+          </span>
+        ))}
+      </div>
+
+      <style>{`
+        .ticker-bg-track {
+          display: flex;
+          animation: ticker-bg-scroll 40s linear infinite;
+        }
+        @keyframes ticker-bg-scroll {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
+    </div>
+  )
+}
