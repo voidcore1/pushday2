@@ -37,14 +37,20 @@ export function Navbar() {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-[100] border-b border-border transition-shadow ${scrolled ? "shadow-sm" : ""}`}
-      style={{ background: "rgba(248,248,246,0.88)", backdropFilter: "blur(14px)" }}
+      style={{
+        background: "rgba(22,101,60,0.95)",
+        backdropFilter: "blur(18px)",
+        borderBottom: "1px solid rgba(0,0,0,0.10)",
+        position: "sticky",
+        top: 0,
+        zIndex: 200,
+      }}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 md:py-5">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-16 py-4">
         <a href="/" className="flex items-center gap-2.5">
           <Image src="/images/bullsedge-logo.png" alt="Bulls Edge Logo" width={52} height={52} className="rounded-sm w-10 h-10 md:w-[52px] md:h-[52px] shrink-0" />
-          <span className="font-sans text-[1.3rem] md:text-[1.6rem] font-extrabold tracking-widest text-foreground uppercase">
-            Bullsedge Academy
+          <span className="font-sans text-[1.3rem] md:text-[1.6rem] tracking-widest uppercase" style={{ color: "#ffffff", fontWeight: 900 }}>
+            Bulls<span style={{ color: "#c08b2f" }}>Edge</span> Academy
           </span>
         </a>
 
@@ -53,7 +59,8 @@ export function Navbar() {
             <Link
               key={link.label}
               href={link.href}
-              className="relative text-[0.9rem] font-sans text-body transition-colors hover:text-primary after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-primary after:transition-all hover:after:w-full"
+              className="text-[14px] font-sans font-medium transition-colors hover:text-white"
+              style={{ color: "rgba(255,255,255,0.88)" }}
             >
               {link.label}
             </Link>
@@ -61,26 +68,29 @@ export function Navbar() {
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <a
-            href="https://wa.me/916355258155"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-primary px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
-          >
-            <WhatsAppIcon />
-            Chat on WhatsApp
-          </a>
           <Link
             href="/#contact"
-            className="inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-dark-green"
+            className="inline-flex items-center transition-colors"
+            style={{
+              background: "#ffffff",
+              color: "#16653c",
+              padding: "9px 22px",
+              borderRadius: "7px",
+              fontWeight: 700,
+              fontSize: "14px",
+              border: "none",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "#f0fdf4")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "#ffffff")}
           >
-            Inquire Now
+            Enroll Now
           </Link>
         </div>
 
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden text-foreground"
+          className="lg:hidden"
+          style={{ color: "rgba(255,255,255,0.88)" }}
           aria-label="Toggle menu"
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -94,7 +104,8 @@ export function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="overflow-hidden border-t border-border bg-background lg:hidden"
+            className="overflow-hidden lg:hidden"
+            style={{ background: "rgba(22,101,60,0.97)", borderTop: "1px solid rgba(255,255,255,0.10)" }}
           >
             <div className="flex flex-col gap-4 px-6 py-6">
               {navLinks.map((link) => (
@@ -102,27 +113,27 @@ export function Navbar() {
                   key={link.label}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="text-body font-sans text-base transition-colors hover:text-primary"
+                  className="font-sans text-base font-medium transition-colors hover:text-white"
+                  style={{ color: "rgba(255,255,255,0.88)" }}
                 >
                   {link.label}
                 </Link>
               ))}
-            <div className="flex flex-col gap-3 pt-4 border-t border-border">
-                <a
-                  href="https://wa.me/916355258155"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-primary px-4 py-2.5 text-sm font-medium text-primary"
-                >
-                  <WhatsAppIcon />
-                  Chat on WhatsApp
-                </a>
+              <div className="pt-4 border-t border-white/10">
                 <Link
                   href="/#contact"
                   onClick={() => setIsOpen(false)}
-                  className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground"
+                  className="inline-flex w-full items-center justify-center"
+                  style={{
+                    background: "#ffffff",
+                    color: "#16653c",
+                    padding: "9px 22px",
+                    borderRadius: "7px",
+                    fontWeight: 700,
+                    fontSize: "14px",
+                  }}
                 >
-                  Inquire Now
+                  Enroll Now
                 </Link>
               </div>
             </div>

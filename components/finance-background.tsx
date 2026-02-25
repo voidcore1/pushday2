@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react"
 
-// ─── Ticker data ─────────────────────────────────────────────────────────────
+// ─── Ticker data ──────────────────────────────────────────────────────────────
 const TICKER_ITEMS = [
   { symbol: "NIFTY",     price: "22,847",  change: "+1.24%", up: true  },
   { symbol: "SENSEX",    price: "73,912",  change: "+0.98%", up: true  },
@@ -18,44 +18,28 @@ const TICKER_ITEMS = [
   { symbol: "USD/INR",   price: "83.42",   change: "−0.12%", up: false },
 ]
 
-// ─── Strip configs ────────────────────────────────────────────────────────────
-const STRIPS = [
-  { yFrac: 0.04, heightFrac: 0.30, lineColor: "#b8832a", lineOpacity: 0.55, scrollSpeed: 0.55, startPrice: 22400 },
-  { yFrac: 0.37, heightFrac: 0.28, lineColor: "#2d6a4f", lineOpacity: 0.40, scrollSpeed: 0.40, startPrice: 48200 },
-  { yFrac: 0.68, heightFrac: 0.28, lineColor: "#1d4ed8", lineOpacity: 0.35, scrollSpeed: 0.65, startPrice: 67400 },
-]
-
-const CANDLE_W  = 9
-const CANDLE_GAP = 4
-const STEP      = CANDLE_W + CANDLE_GAP  // 13
+// ─── Constants ────────────────────────────────────────────────────────────────
+const CANDLE_W   = 14
+const CANDLE_GAP = 5
+const STEP       = CANDLE_W + CANDLE_GAP  // 19
+const CHART_PAD  = 0.08
+const SCROLL_SPD = 0.5
+const SEED_PRICE = 22400
 
 type OHLC = { open: number; close: number; high: number; low: number }
 
-function genCandles(n: number, startPrice: number): OHLC[] {
-  const arr: OHLC[] = []
-  let price = startPrice
-  for (let i = 0; i < n; i++) {
-    const open  = price
-    const move  = (Math.random() - 0.48) * price * 0.022
-    const close = open + move
-    const high  = Math.max(open, close) + Math.random() * price * 0.008
-    const low   = Math.min(open, close) - Math.random() * price * 0.008
-    arr.push({ open, close, high, low })
-    price = close
-  }
-  return arr
+function makeCandle(prevClose: number): OHLC {
+  const vol   = prevClose * 0.018
+  const open  = prevClose
+  const close = open + (Math.random() - 0.47) * vol
+  const high  = Math.max(open, close) + Math.random() * vol * 0.5
+  const low   = Math.min(open, close) - Math.random() * vol * 0.5
+  return { open, close, high, low }
 }
 
-type StripState = {
-  candles: OHLC[]
-  offset: number
-  cfg: typeof STRIPS[0]
-}
-
-function mapY(price: number, minP: number, maxP: number, yTop: number, zoneH: number): number {
-  const pad = zoneH * 0.12
+function mapY(price: number, minP: number, maxP: number, H: number): number {
   const range = maxP - minP || 1
-  return yTop + pad + ((maxP - price) / range) * (zoneH - pad * 2)
+  return H * CHART_PAD + ((maxP - price) / range) * H * (1 - CHART_PAD * 2)
 }
 
 export function FinanceBackground() {
@@ -69,7 +53,11 @@ export function FinanceBackground() {
 
     const dpr = window.devicePixelRatio || 1
 
-    const resize = () => {
+    // Candle buffer
+    let candles: OHLC[] = []
+    let offset = 0
+
+    const init = () => {
       const w = window.innerWidth
       const h = window.innerHeight
       canvas.width  = w * dpr
@@ -77,33 +65,66 @@ export function FinanceBackground() {
       canvas.style.width  = `${w}px`
       canvas.style.height = `${h}px`
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+
+      // Rebuild candle buffer
+      const count = Math.ceil(w / STEP) + 40
+      candles = []
+      let price = SEED_PRICE
+      for (let i = 0; i < count; i++) {
+        const c = makeCandle(price)
+        candles.push(c)
+        price = c.close
+      }
+      offset = 0
     }
-    resize()
-    window.addEventListener("resize", resize)
 
-    const W = () => window.innerWidth
-    const H = () => window.innerHeight
-
-    // Initialise strips — fill enough candles to cover full width + buffer
-    const strips: StripState[] = STRIPS.map((cfg) => {
-      const count = Math.ceil(W() / STEP) + 20
-      return { candles: genCandles(count, cfg.startPrice), offset: 0, cfg }
-    })
+    init()
+    window.addEventListener("resize", init)
 
     let raf: number
 
     const render = () => {
-      const w = W()
-      const h = H()
+      const w = window.innerWidth
+      const h = window.innerHeight
+
       ctx.clearRect(0, 0, w, h)
 
-      // ── STEP 1: vertical grid lines ──────────────────────────────────────
+      // ── Advance scroll ──────────────────────────────────────────────────
+      offset += SCROLL_SPD
+      if (offset >= STEP) {
+        offset -= STEP
+        candles.shift()
+        candles.push(makeCandle(candles[candles.length - 1]?.close ?? SEED_PRICE))
+      }
+
+      // Price range
+      const allHighs = candles.map((c) => c.high)
+      const allLows  = candles.map((c) => c.low)
+      const minP = Math.min(...allLows)
+      const maxP = Math.max(...allHighs)
+
+      const totalW = candles.length * STEP
+      const startX = w - totalW + offset
+
+      // ── STEP 1: Horizontal grid lines ───────────────────────────────────
       ctx.save()
-      ctx.strokeStyle = "rgba(85,85,85,0.04)"
+      ctx.strokeStyle = "rgba(192,139,47,0.07)"
       ctx.lineWidth = 1
-      const cols = 14
-      for (let i = 0; i <= cols; i++) {
-        const x = (w / cols) * i
+      for (let i = 1; i <= 5; i++) {
+        const y = (h / 6) * i
+        ctx.beginPath()
+        ctx.moveTo(0, y)
+        ctx.lineTo(w, y)
+        ctx.stroke()
+      }
+      ctx.restore()
+
+      // ── STEP 2: Vertical grid lines ─────────────────────────────────────
+      ctx.save()
+      ctx.strokeStyle = "rgba(100,100,100,0.04)"
+      ctx.lineWidth = 1
+      for (let i = 0; i <= 11; i++) {
+        const x = (w / 11) * i
         ctx.beginPath()
         ctx.moveTo(x, 0)
         ctx.lineTo(x, h)
@@ -111,120 +132,136 @@ export function FinanceBackground() {
       }
       ctx.restore()
 
-      // ── STEP 2: three chart strips ────────────────────────────────────────
-      for (const s of strips) {
-        const { cfg } = s
-        const yTop   = h * cfg.yFrac
-        const zoneH  = h * cfg.heightFrac
+      // ── STEP 3: Area fill under close line ───────────────────────────────
+      ctx.save()
+      const grad = ctx.createLinearGradient(0, 0, 0, h)
+      grad.addColorStop(0,   "rgba(192,139,47,0.10)")
+      grad.addColorStop(0.5, "rgba(192,139,47,0.04)")
+      grad.addColorStop(1,   "rgba(192,139,47,0.00)")
+      ctx.fillStyle = grad
 
-        // Advance scroll
-        s.offset += cfg.scrollSpeed
-        while (s.offset >= STEP) {
-          s.offset -= STEP
-          s.candles.shift()
-          s.candles.push(genCandles(1, s.candles[s.candles.length - 1]?.close ?? cfg.startPrice)[0])
-        }
+      ctx.beginPath()
+      let areaStarted = false
+      candles.forEach((c, i) => {
+        const cx = startX + i * STEP + CANDLE_W / 2
+        if (cx < -STEP || cx > w + STEP) return
+        const cy = mapY(c.close, minP, maxP, h)
+        if (!areaStarted) { ctx.moveTo(cx, cy); areaStarted = true }
+        else ctx.lineTo(cx, cy)
+      })
+      // Close path to bottom
+      const lastVisibleX = startX + (candles.length - 1) * STEP + CANDLE_W / 2
+      ctx.lineTo(Math.min(lastVisibleX, w + STEP), h)
+      ctx.lineTo(startX + CANDLE_W / 2, h)
+      ctx.closePath()
+      ctx.fill()
+      ctx.restore()
 
-        // ── A: horizontal grid lines inside strip ─────────────────────────
+      // ── STEP 4: Candlesticks ─────────────────────────────────────────────
+      candles.forEach((c, i) => {
+        const cx = startX + i * STEP
+        if (cx + CANDLE_W < 0 || cx > w) return
+
+        const bull      = c.close >= c.open
+        const bodyColor = bull ? "#c08b2f" : "#9ca3af"
+        const centerX   = cx + CANDLE_W / 2
+        const bodyTop    = mapY(Math.max(c.open, c.close), minP, maxP, h)
+        const bodyBottom = mapY(Math.min(c.open, c.close), minP, maxP, h)
+        const bodyH      = Math.max(bodyBottom - bodyTop, 2)
+
+        // Wick
         ctx.save()
-        ctx.strokeStyle = "#b8832a"
-        ctx.globalAlpha = 0.07
-        ctx.lineWidth = 0.5
-        for (let d = 1; d <= 3; d++) {
-          const gy = yTop + (zoneH / 4) * d
-          ctx.beginPath()
-          ctx.moveTo(0, gy)
-          ctx.lineTo(w, gy)
-          ctx.stroke()
-        }
-        ctx.restore()
-
-        // Price range for mapping
-        const allHighs = s.candles.map((c) => c.high)
-        const allLows  = s.candles.map((c) => c.low)
-        const minP = Math.min(...allLows)
-        const maxP = Math.max(...allHighs)
-
-        const totalW  = s.candles.length * STEP
-        const startX  = w - totalW + s.offset
-
-        // ── B: candlesticks ────────────────────────────────────────────────
-        s.candles.forEach((c, i) => {
-          const cx = startX + i * STEP
-          if (cx + CANDLE_W < 0 || cx > w) return
-
-          const bull = c.close >= c.open
-          const bodyColor = bull ? "#b8832a" : "#8a8a8a"
-          const bodyTop    = mapY(Math.max(c.open, c.close), minP, maxP, yTop, zoneH)
-          const bodyBottom = mapY(Math.min(c.open, c.close), minP, maxP, yTop, zoneH)
-          const bodyH      = Math.max(bodyBottom - bodyTop, 1)
-          const centerX    = cx + CANDLE_W / 2
-
-          // Wick
-          ctx.save()
-          ctx.strokeStyle = bodyColor
-          ctx.lineWidth = 1
-          ctx.globalAlpha = 0.22
-          ctx.beginPath()
-          ctx.moveTo(centerX, mapY(c.high, minP, maxP, yTop, zoneH))
-          ctx.lineTo(centerX, mapY(c.low,  minP, maxP, yTop, zoneH))
-          ctx.stroke()
-          ctx.restore()
-
-          // Body fill
-          ctx.save()
-          ctx.fillStyle = bodyColor
-          ctx.globalAlpha = bull ? 0.28 : 0.18
-          ctx.fillRect(cx, bodyTop, CANDLE_W, bodyH)
-          ctx.restore()
-
-          // Body outline
-          ctx.save()
-          ctx.strokeStyle = bodyColor
-          ctx.lineWidth = 0.8
-          ctx.globalAlpha = 0.35
-          ctx.strokeRect(cx, bodyTop, CANDLE_W, bodyH)
-          ctx.restore()
-        })
-
-        // ── C: solid overlay line (close prices) ──────────────────────────
-        ctx.save()
-        ctx.strokeStyle = cfg.lineColor
-        ctx.lineWidth = 1.8
-        ctx.globalAlpha = cfg.lineOpacity
-        ctx.lineJoin = "round"
-        ctx.shadowBlur = 0
+        ctx.strokeStyle = bodyColor
+        ctx.lineWidth   = 1.2
+        ctx.globalAlpha = bull ? 0.30 : 0.30
         ctx.beginPath()
-        let started = false
-        s.candles.forEach((c, i) => {
-          const cx = startX + i * STEP + CANDLE_W / 2
-          if (cx < -STEP || cx > w + STEP) return
-          const cy = mapY(c.close, minP, maxP, yTop, zoneH)
-          if (!started) { ctx.moveTo(cx, cy); started = true }
-          else ctx.lineTo(cx, cy)
-        })
+        ctx.moveTo(centerX, mapY(c.high, minP, maxP, h))
+        ctx.lineTo(centerX, mapY(c.low,  minP, maxP, h))
         ctx.stroke()
         ctx.restore()
 
-        // ── D: dashed overlay line (open prices) ──────────────────────────
+        // Body fill
         ctx.save()
-        ctx.strokeStyle = cfg.lineColor
-        ctx.lineWidth = 1.2
-        ctx.globalAlpha = cfg.lineOpacity * 0.55
-        ctx.lineJoin = "round"
-        ctx.setLineDash([6, 5])
-        ctx.shadowBlur = 0
+        ctx.fillStyle   = bodyColor
+        ctx.globalAlpha = bull ? 0.35 : 0.20
+        ctx.fillRect(cx, bodyTop, CANDLE_W, bodyH)
+        ctx.restore()
+
+        // Body outline
+        ctx.save()
+        ctx.strokeStyle = bodyColor
+        ctx.lineWidth   = 0.8
+        ctx.globalAlpha = bull ? 0.50 : 0.30
+        ctx.strokeRect(cx, bodyTop, CANDLE_W, bodyH)
+        ctx.restore()
+      })
+
+      // ── STEP 5: Solid close line ─────────────────────────────────────────
+      ctx.save()
+      ctx.strokeStyle  = "#c08b2f"
+      ctx.lineWidth    = 2.2
+      ctx.globalAlpha  = 0.70
+      ctx.lineJoin     = "round"
+      ctx.lineCap      = "round"
+      ctx.shadowBlur   = 0
+      ctx.beginPath()
+      let closeStarted = false
+      candles.forEach((c, i) => {
+        const cx = startX + i * STEP + CANDLE_W / 2
+        if (cx < -STEP || cx > w + STEP) return
+        const cy = mapY(c.close, minP, maxP, h)
+        if (!closeStarted) { ctx.moveTo(cx, cy); closeStarted = true }
+        else ctx.lineTo(cx, cy)
+      })
+      ctx.stroke()
+      ctx.restore()
+
+      // ── STEP 6: Dashed open line ─────────────────────────────────────────
+      ctx.save()
+      ctx.strokeStyle  = "#6b7280"
+      ctx.lineWidth    = 1.3
+      ctx.globalAlpha  = 0.28
+      ctx.lineJoin     = "round"
+      ctx.setLineDash([7, 6])
+      ctx.shadowBlur   = 0
+      ctx.beginPath()
+      let openStarted = false
+      candles.forEach((c, i) => {
+        const cx = startX + i * STEP + CANDLE_W / 2
+        if (cx < -STEP || cx > w + STEP) return
+        const cy = mapY(c.open, minP, maxP, h)
+        if (!openStarted) { ctx.moveTo(cx, cy); openStarted = true }
+        else ctx.lineTo(cx, cy)
+      })
+      ctx.stroke()
+      ctx.setLineDash([])
+      ctx.restore()
+
+      // ── STEP 7: Pulsing live dot ─────────────────────────────────────────
+      const lastCandle = candles[candles.length - 1]
+      if (lastCandle) {
+        const dotX    = startX + (candles.length - 1) * STEP + CANDLE_W / 2
+        const dotY    = mapY(lastCandle.close, minP, maxP, h)
+        const pulse   = (Math.sin(Date.now() * 0.004) + 1) / 2
+
+        // Outer ring
+        ctx.save()
+        ctx.fillStyle   = `rgba(192,139,47,${0.08 + pulse * 0.08})`
+        ctx.globalAlpha = 1
+        ctx.shadowBlur  = 0
         ctx.beginPath()
-        let started2 = false
-        s.candles.forEach((c, i) => {
-          const cx = startX + i * STEP + CANDLE_W / 2
-          if (cx < -STEP || cx > w + STEP) return
-          const cy = mapY(c.open, minP, maxP, yTop, zoneH)
-          if (!started2) { ctx.moveTo(cx, cy); started2 = true }
-          else ctx.lineTo(cx, cy)
-        })
-        ctx.stroke()
-        ctx.setLineDash([])
+        ctx.arc(dotX, dotY, 6 + pulse * 5, 0, Math.PI * 2)
+        ctx.fill()
+        ctx.restore()
+
+        // Inner dot
+        ctx.save()
+        ctx.fillStyle   = "#c08b2f"
+        ctx.globalAlpha = 0.85
+        ctx.shadowBlur  = 0
+        ctx.beginPath()
+        ctx.arc(dotX, dotY, 4, 0, Math.PI * 2)
+        ctx.fill()
         ctx.restore()
       }
 
@@ -235,19 +272,21 @@ export function FinanceBackground() {
 
     return () => {
       cancelAnimationFrame(raf)
-      window.removeEventListener("resize", resize)
+      window.removeEventListener("resize", init)
     }
   }, [])
 
   return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-0"
-      style={{ background: "transparent" }}
-    >
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" style={{ background: "transparent" }} />
+    <>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 z-0"
+        style={{ background: "transparent" }}
+      >
+        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" style={{ background: "transparent" }} />
+      </div>
       <TickerBar />
-    </div>
+    </>
   )
 }
 
@@ -257,7 +296,8 @@ function TickerBar() {
 
   return (
     <div
-      className="absolute bottom-0 left-0 right-0 flex items-center overflow-hidden"
+      aria-hidden="true"
+      className="pointer-events-none fixed bottom-0 left-0 right-0 z-[5] flex items-center overflow-hidden"
       style={{
         height: "34px",
         background: "rgba(18,18,18,0.94)",

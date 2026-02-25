@@ -30,7 +30,7 @@ export function ContactSection() {
     <section
       id="contact"
       className="py-20 md:py-28"
-      style={{ background: "rgba(255,255,255,0.78)", backdropFilter: "blur(12px)" }}
+      style={{ background: "rgba(255,255,255,0.55)", backdropFilter: "blur(20px) saturate(160%)", WebkitBackdropFilter: "blur(20px) saturate(160%)", borderTop: "1px solid rgba(255,255,255,0.70)", borderBottom: "1px solid rgba(255,255,255,0.40)" }}
     >
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
@@ -57,7 +57,8 @@ export function ContactSection() {
                 href="https://wa.me/916355258155"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 rounded-xl border border-border/80 bg-background/90 backdrop-blur-md p-4 transition-colors hover:border-primary"
+                className="flex items-center gap-4 p-4 transition-colors hover:border-primary"
+                style={{ background: "rgba(255,255,255,0.72)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.85)", borderRadius: "16px", boxShadow: "0 2px 16px rgba(0,0,0,0.05)" }}
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#25D366]">
                   <WhatsAppIcon className="text-background" />
@@ -70,7 +71,8 @@ export function ContactSection() {
 
               <a
                 href="tel:+916355268155"
-                className="flex items-center gap-4 rounded-xl border border-border/80 bg-background/90 backdrop-blur-md p-4 transition-colors hover:border-primary"
+                className="flex items-center gap-4 p-4 transition-colors hover:border-primary"
+                style={{ background: "rgba(255,255,255,0.72)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.85)", borderRadius: "16px", boxShadow: "0 2px 16px rgba(0,0,0,0.05)" }}
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary">
                   <Phone size={18} className="text-primary" />
@@ -83,7 +85,8 @@ export function ContactSection() {
 
               <a
                 href="mailto:bullsedgeacad@gmail.com"
-                className="flex items-center gap-4 rounded-xl border border-border/80 bg-background/90 backdrop-blur-md p-4 transition-colors hover:border-primary"
+                className="flex items-center gap-4 p-4 transition-colors hover:border-primary"
+                style={{ background: "rgba(255,255,255,0.72)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.85)", borderRadius: "16px", boxShadow: "0 2px 16px rgba(0,0,0,0.05)" }}
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary">
                   <Mail size={18} className="text-primary" />
@@ -94,7 +97,7 @@ export function ContactSection() {
                 </div>
               </a>
 
-              <div className="flex items-start gap-4 rounded-xl border border-border/80 bg-background/90 backdrop-blur-md p-4">
+              <div className="flex items-start gap-4 p-4" style={{ background: "rgba(255,255,255,0.72)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.85)", borderRadius: "16px", boxShadow: "0 2px 16px rgba(0,0,0,0.05)" }}>
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary shrink-0">
                   <Instagram size={18} className="text-primary" />
                 </div>
@@ -118,7 +121,7 @@ export function ContactSection() {
             variants={fadeUpVariant}
             className="flex-1"
           >
-            <div className="rounded-2xl border border-border/80 bg-background/90 backdrop-blur-md p-6 md:p-8 shadow-sm">
+            <div className="p-6 md:p-8" style={{ background: "rgba(255,255,255,0.72)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.85)", borderRadius: "16px", boxShadow: "0 2px 16px rgba(0,0,0,0.05)" }}>
               <AnimatePresence mode="wait">
                 {!submitted ? (
                   <motion.form

@@ -85,8 +85,9 @@ function CardGrid({
                 transition: { duration: 0.5, delay: i * 0.07, ease: "easeOut" },
               },
             }}
-            whileHover={{ y: -4, boxShadow: "0 12px 40px rgba(0,0,0,0.08)" }}
-            className="rounded-xl border border-border/80 bg-background/90 backdrop-blur-md p-6 md:p-8 transition-colors hover:border-primary"
+            whileHover={{ y: -5, boxShadow: "0 16px 36px rgba(0,0,0,0.09)" }}
+            className="p-6 md:p-8 transition-all hover:border-primary"
+            style={{ background: "rgba(255,255,255,0.72)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.85)", borderRadius: "16px", boxShadow: "0 2px 16px rgba(0,0,0,0.05)" }}
           >
             <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-secondary">
               <Icon size={22} className="text-primary" />
@@ -102,7 +103,7 @@ function CardGrid({
 
 export function OfferingsSection() {
   return (
-    <section id="offerings" className="py-20 md:py-28" style={{ background: "rgba(255,255,255,0.78)", backdropFilter: "blur(12px)" }}>
+    <section id="offerings" className="py-20 md:py-28" style={{ background: "rgba(255,255,255,0.55)", backdropFilter: "blur(20px) saturate(160%)", WebkitBackdropFilter: "blur(20px) saturate(160%)", borderTop: "1px solid rgba(255,255,255,0.70)", borderBottom: "1px solid rgba(255,255,255,0.40)" }}>
       <div className="mx-auto max-w-7xl px-6 flex flex-col gap-20">
 
         {/* Core Areas */}
