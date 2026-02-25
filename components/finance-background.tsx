@@ -243,9 +243,9 @@ export function FinanceBackground() {
     <div
       aria-hidden="true"
       className="pointer-events-none fixed inset-0 z-0"
-      style={{ background: "#f8f8f6" }}
+      style={{ background: "transparent" }}
     >
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" style={{ background: "transparent" }} />
       <TickerBar />
     </div>
   )

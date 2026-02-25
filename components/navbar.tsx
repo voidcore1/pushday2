@@ -37,8 +37,8 @@ export function Navbar() {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 border-b border-border transition-shadow ${scrolled ? "shadow-sm" : ""}`}
-      style={{ background: "rgba(255,255,255,0.78)", backdropFilter: "blur(12px)" }}
+      className={`fixed top-0 left-0 right-0 z-[100] border-b border-border transition-shadow ${scrolled ? "shadow-sm" : ""}`}
+      style={{ background: "rgba(248,248,246,0.88)", backdropFilter: "blur(14px)" }}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 md:py-5">
         <a href="/" className="flex items-center gap-2.5">

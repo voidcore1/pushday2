@@ -28,7 +28,7 @@ const programs = [
 
 export function Footer() {
   return (
-    <footer className="bg-dark">
+    <footer className="relative z-10" style={{ background: "rgba(255,255,255,0.85)", backdropFilter: "blur(12px)", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
       <div className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Col 1 - Brand */}
@@ -41,11 +41,11 @@ export function Footer() {
                 height={32}
                 className="shrink-0"
               />
-              <span className="font-sans text-sm font-bold tracking-widest text-background uppercase">
+              <span className="font-sans text-sm font-bold tracking-widest uppercase" style={{ color: "#0f0f0f" }}>
                 Bullsedge Academy
               </span>
             </div>
-            <p className="text-sm text-background/50 leading-relaxed mb-6">
+            <p className="text-sm leading-relaxed mb-6" style={{ color: "#555555" }}>
               Master the Markets. Empowering the next generation of disciplined, profitable traders through education and mentorship.
             </p>
             <div className="flex items-center gap-3">
@@ -53,7 +53,8 @@ export function Footer() {
                 href="https://instagram.com/bullsedge_academy"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-background/20 text-background/70 transition-colors hover:border-primary hover:text-primary"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-black/15 transition-colors hover:border-primary hover:text-primary"
+                style={{ color: "#555555" }}
                 aria-label="Instagram"
               >
                 <Instagram size={16} />
@@ -62,14 +63,16 @@ export function Footer() {
                 href="https://wa.me/916355258155"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-background/20 text-background/70 transition-colors hover:border-primary hover:text-primary"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-black/15 transition-colors hover:border-primary hover:text-primary"
+                style={{ color: "#555555" }}
                 aria-label="WhatsApp"
               >
                 <WhatsAppIcon className="text-current" />
               </a>
               <a
                 href="mailto:bullsedgeacad@gmail.com"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-background/20 text-background/70 transition-colors hover:border-primary hover:text-primary"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-black/15 transition-colors hover:border-primary hover:text-primary"
+                style={{ color: "#555555" }}
                 aria-label="Email"
               >
                 <Mail size={16} />
@@ -79,11 +82,11 @@ export function Footer() {
 
           {/* Col 2 - Quick Links */}
           <div>
-            <h4 className="text-sm font-bold text-background mb-4 font-sans">Quick Links</h4>
+            <h4 className="text-sm font-bold mb-4 font-sans" style={{ color: "#0f0f0f" }}>Quick Links</h4>
             <ul className="flex flex-col gap-2.5">
               {quickLinks.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-sm text-background/60 transition-colors hover:text-primary">
+                  <a href={link.href} className="text-sm transition-colors hover:text-primary" style={{ color: "#555555" }}>
                     {link.label}
                   </a>
                 </li>
@@ -93,20 +96,20 @@ export function Footer() {
 
           {/* Col 3 - Programs */}
           <div>
-            <h4 className="text-sm font-bold text-background mb-4 font-sans">Core Areas</h4>
+            <h4 className="text-sm font-bold mb-4 font-sans" style={{ color: "#0f0f0f" }}>Core Areas</h4>
             <ul className="flex flex-col gap-2.5">
               {programs.map((p) => (
                 <li key={p}>
-                  <a href="/#offerings" className="text-sm text-background/60 transition-colors hover:text-primary">
+                  <a href="/#offerings" className="text-sm transition-colors hover:text-primary" style={{ color: "#555555" }}>
                     {p}
                   </a>
                 </li>
               ))}
               <li>
-                <Link href="/terms" className="text-sm text-background/60 transition-colors hover:text-primary">Terms & Conditions</Link>
+                <Link href="/terms" className="text-sm transition-colors hover:text-primary" style={{ color: "#555555" }}>Terms & Conditions</Link>
               </li>
               <li>
-                <Link href="/privacy" className="text-sm text-background/60 transition-colors hover:text-primary">Privacy Policy</Link>
+                <Link href="/privacy" className="text-sm transition-colors hover:text-primary" style={{ color: "#555555" }}>Privacy Policy</Link>
               </li>
             </ul>
           </div>
@@ -116,7 +119,7 @@ export function Footer() {
             <h4 className="text-xs font-semibold uppercase tracking-widest mb-4 font-sans" style={{ color: "#00A855", letterSpacing: "0.15em" }}>
               Contact Info
             </h4>
-            <ul className="flex flex-col gap-3 font-sans text-[0.9rem]" style={{ color: "rgba(255,255,255,0.75)" }}>
+            <ul className="flex flex-col gap-3 font-sans text-[0.9rem]" style={{ color: "#555555" }}>
               <li className="flex items-start gap-2.5">
                 <MapPin size={18} className="shrink-0 mt-0.5" style={{ color: "#00A855" }} />
                 <span>BullsEdge Academy, A-504, Dev Aurum Commercial Building, Anand Nagar Crossroad, Prahladanagar, Ahmedabad – 380015</span>
@@ -142,9 +145,9 @@ export function Footer() {
       </div>
 
       {/* Divider */}
-      <div className="border-t border-background/10">
+      <div className="border-t border-black/8">
         <div className="mx-auto max-w-7xl px-6 py-6">
-          <p className="text-center text-xs font-sans" style={{ color: "rgba(255,255,255,0.75)" }}>
+          <p className="text-center text-xs font-sans" style={{ color: "#888888" }}>
             © 2025 BullsEdge Academy. All rights reserved. | Prahladanagar, Ahmedabad – 380015  ·  <Link href="/terms" className="transition-colors hover:text-primary">Terms & Conditions</Link>  ·  <Link href="/privacy" className="transition-colors hover:text-primary">Privacy Policy</Link>
           </p>
         </div>

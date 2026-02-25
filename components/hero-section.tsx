@@ -5,7 +5,6 @@ import { useCountUp } from "@/hooks/use-count-up"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
 import Image from "next/image"
-import { HeroBackground } from "@/components/hero-background"
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -39,7 +38,7 @@ function TrustStat({ target, suffix, label }: { target: number; suffix: string; 
       <span className="text-3xl font-bold font-sans text-primary">
         {count}{suffix}
       </span>
-      <p className="text-sm text-white/50 mt-1">{label}</p>
+      <p className="text-sm mt-1" style={{ color: "#555555" }}>{label}</p>
     </div>
   )
 }
@@ -48,9 +47,8 @@ export function HeroSection() {
   return (
     <section
       className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden"
-      style={{ background: "#0a0a0a" }}
+      style={{ background: "transparent" }}
     >
-      <HeroBackground />
       <div className="relative z-10 mx-auto max-w-7xl px-6 w-full">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
           {/* Left column */}
@@ -61,13 +59,13 @@ export function HeroSection() {
             animate="visible"
           >
             <motion.div variants={fadeUp}>
-              <span className="inline-flex items-center gap-2 rounded-full border border-[#d4a843] px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-[#d4a843]">
+              <span className="inline-flex items-center gap-2 rounded-full border border-[#b8832a] px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-[#b8832a]">
                 <span>&#9889;</span> #1 Trading Academy
               </span>
             </motion.div>
 
             <motion.div variants={fadeUp} className="mt-6">
-              <h1 className="font-serif text-5xl leading-[1.05] font-bold text-white md:text-6xl lg:text-7xl text-balance">
+              <h1 className="font-serif text-5xl leading-[1.05] font-bold md:text-6xl lg:text-7xl text-balance" style={{ color: "#0f0f0f" }}>
                 Experience Trading
                 <br />
                 Like{" "}
@@ -77,7 +75,7 @@ export function HeroSection() {
 
             <motion.p
               variants={fadeUp}
-              className="mt-6 max-w-xl text-lg leading-relaxed text-white/70"
+              className="mt-6 max-w-xl text-lg leading-relaxed" style={{ color: "#555555" }}
             >
               Hands-On Training. Real-World Results. Join the academy that builds
               disciplined, profitable traders from the ground up.
@@ -95,7 +93,7 @@ export function HeroSection() {
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center rounded-full border-2 border-[#d4a843] px-7 py-3 text-base font-semibold text-[#d4a843] transition-colors hover:bg-[#d4a843] hover:text-black"
+                className="inline-flex items-center rounded-full border-2 border-[#b8832a] px-7 py-3 text-base font-semibold text-[#b8832a] transition-colors hover:bg-[#b8832a] hover:text-white"
               >
                 Inquire Now
               </a>
@@ -149,8 +147,8 @@ export function HeroSection() {
 
               {/* 200+ 5-Star Reviews badge */}
               <div className="absolute -bottom-6 right-0 md:-bottom-4 md:right-4 z-[2]">
-                <div className="rounded-full px-4 py-2 flex items-center gap-2 shadow-lg border border-white/10" style={{ background: "rgba(15,15,15,0.9)", backdropFilter: "blur(12px)" }}>
-                  <span className="text-sm font-medium text-white">200+</span>
+                <div className="rounded-full px-4 py-2 flex items-center gap-2 shadow-lg border border-black/8" style={{ background: "rgba(255,255,255,0.88)", backdropFilter: "blur(12px)" }}>
+                  <span className="text-sm font-medium" style={{ color: "#0f0f0f" }}>200+</span>
                   <span className="flex gap-0.5">
                     {[...Array(5)].map((_, i) => (
                       <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="#F59E0B">
@@ -158,7 +156,7 @@ export function HeroSection() {
                       </svg>
                     ))}
                   </span>
-                  <span className="text-xs text-white/50">5-Star Reviews</span>
+                  <span className="text-xs" style={{ color: "#555555" }}>5-Star Reviews</span>
                 </div>
               </div>
 
@@ -166,18 +164,18 @@ export function HeroSection() {
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -bottom-10 left-0 md:-bottom-8 md:-left-4 rounded-xl px-4 py-3 shadow-lg flex items-center gap-3 z-[2] border border-white/10"
-                style={{ background: "rgba(15,15,15,0.9)", backdropFilter: "blur(12px)" }}
+                className="absolute -bottom-10 left-0 md:-bottom-8 md:-left-4 rounded-xl px-4 py-3 shadow-lg flex items-center gap-3 z-[2] border border-black/8"
+                style={{ background: "rgba(255,255,255,0.88)", backdropFilter: "blur(12px)" }}
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-full" style={{ background: "rgba(0,168,85,0.15)" }}>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full" style={{ background: "rgba(0,168,85,0.12)" }}>
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00A855" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
                     <polyline points="17 6 23 6 23 12" />
                   </svg>
                 </div>
                 <div>
-                  <p className="text-lg font-bold text-white">500+</p>
-                  <p className="text-xs text-white/50">Students</p>
+                  <p className="text-lg font-bold" style={{ color: "#0f0f0f" }}>500+</p>
+                  <p className="text-xs" style={{ color: "#555555" }}>Students</p>
                 </div>
               </motion.div>
             </div>
