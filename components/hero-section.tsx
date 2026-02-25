@@ -5,6 +5,7 @@ import { useCountUp } from "@/hooks/use-count-up"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
 import Image from "next/image"
+import { HeroBackground } from "@/components/hero-background"
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -38,7 +39,7 @@ function TrustStat({ target, suffix, label }: { target: number; suffix: string; 
       <span className="text-3xl font-bold font-sans text-primary">
         {count}{suffix}
       </span>
-      <p className="text-sm text-muted-foreground mt-1">{label}</p>
+      <p className="text-sm text-white/50 mt-1">{label}</p>
     </div>
   )
 }
@@ -47,13 +48,10 @@ export function HeroSection() {
   return (
     <section
       className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden"
-      style={{
-        backgroundImage:
-          "radial-gradient(circle, rgba(0,168,85,0.04) 1px, transparent 1px)",
-        backgroundSize: "24px 24px",
-      }}
+      style={{ background: "#0a0a0a" }}
     >
-      <div className="mx-auto max-w-7xl px-6 w-full">
+      <HeroBackground />
+      <div className="relative z-10 mx-auto max-w-7xl px-6 w-full">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
           {/* Left column */}
           <motion.div
@@ -63,13 +61,13 @@ export function HeroSection() {
             animate="visible"
           >
             <motion.div variants={fadeUp}>
-              <span className="inline-flex items-center gap-2 rounded-full border border-primary px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-primary">
-                <span className="text-primary">&#9889;</span> #1 Trading Academy
+              <span className="inline-flex items-center gap-2 rounded-full border border-[#d4a843] px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-[#d4a843]">
+                <span>&#9889;</span> #1 Trading Academy
               </span>
             </motion.div>
 
             <motion.div variants={fadeUp} className="mt-6">
-              <h1 className="font-serif text-5xl leading-[1.05] font-bold text-foreground md:text-6xl lg:text-7xl text-balance">
+              <h1 className="font-serif text-5xl leading-[1.05] font-bold text-white md:text-6xl lg:text-7xl text-balance">
                 Experience Trading
                 <br />
                 Like{" "}
@@ -79,7 +77,7 @@ export function HeroSection() {
 
             <motion.p
               variants={fadeUp}
-              className="mt-6 max-w-xl text-lg text-body leading-relaxed"
+              className="mt-6 max-w-xl text-lg leading-relaxed text-white/70"
             >
               Hands-On Training. Real-World Results. Join the academy that builds
               disciplined, profitable traders from the ground up.
@@ -87,17 +85,17 @@ export function HeroSection() {
 
             <motion.div variants={fadeUp} className="mt-8 flex flex-wrap items-center gap-4">
               <a
-                href="https://wa.me/917087568155"
+                href="https://wa.me/916355258155"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-base font-semibold text-primary-foreground transition-colors hover:bg-dark-green"
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-base font-semibold text-white transition-colors hover:bg-dark-green"
               >
-                <WhatsAppIcon className="text-primary-foreground" />
+                <WhatsAppIcon className="text-white" />
                 Chat on WhatsApp
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center rounded-full border-2 border-primary px-7 py-3 text-base font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                className="inline-flex items-center rounded-full border-2 border-[#d4a843] px-7 py-3 text-base font-semibold text-[#d4a843] transition-colors hover:bg-[#d4a843] hover:text-black"
               >
                 Inquire Now
               </a>
@@ -151,8 +149,8 @@ export function HeroSection() {
 
               {/* 200+ 5-Star Reviews badge */}
               <div className="absolute -bottom-6 right-0 md:-bottom-4 md:right-4 z-[2]">
-                <div className="rounded-full bg-background/95 px-4 py-2 flex items-center gap-2 shadow-lg border border-border/60">
-                  <span className="text-sm font-medium text-foreground">200+</span>
+                <div className="rounded-full px-4 py-2 flex items-center gap-2 shadow-lg border border-white/10" style={{ background: "rgba(15,15,15,0.9)", backdropFilter: "blur(12px)" }}>
+                  <span className="text-sm font-medium text-white">200+</span>
                   <span className="flex gap-0.5">
                     {[...Array(5)].map((_, i) => (
                       <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="#F59E0B">
@@ -160,7 +158,7 @@ export function HeroSection() {
                       </svg>
                     ))}
                   </span>
-                  <span className="text-xs text-muted-foreground">5-Star Reviews</span>
+                  <span className="text-xs text-white/50">5-Star Reviews</span>
                 </div>
               </div>
 
@@ -168,17 +166,18 @@ export function HeroSection() {
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -bottom-10 left-0 md:-bottom-8 md:-left-4 rounded-xl bg-background border border-border px-4 py-3 shadow-lg flex items-center gap-3 z-[2]"
+                className="absolute -bottom-10 left-0 md:-bottom-8 md:-left-4 rounded-xl px-4 py-3 shadow-lg flex items-center gap-3 z-[2] border border-white/10"
+                style={{ background: "rgba(15,15,15,0.9)", backdropFilter: "blur(12px)" }}
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full" style={{ background: "rgba(0,168,85,0.15)" }}>
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00A855" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
                     <polyline points="17 6 23 6 23 12" />
                   </svg>
                 </div>
                 <div>
-                  <p className="text-lg font-bold text-foreground">500+</p>
-                  <p className="text-xs text-muted-foreground">Students</p>
+                  <p className="text-lg font-bold text-white">500+</p>
+                  <p className="text-xs text-white/50">Students</p>
                 </div>
               </motion.div>
             </div>
